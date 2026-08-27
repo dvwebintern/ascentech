@@ -1,0 +1,138 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap');
+
+@theme {
+    --font-sans: 'Inter Tight', ui-sans-serif, system-ui, sans-serif;
+
+    --color-primary: #2E3192;
+    --color-accent: #A58D32;
+    --color-gold: #ffc229;
+    --color-text: #1A1A1C;
+    --color-text-secondary: #555555;
+
+    --container-site: 1200px;
+}
+
+.container-site {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+/* =========================================================
+   EXPERTISE CARDS
+========================================================= */
+
+.expertise-card {
+    position: relative;
+}
+
+
+/* IMAGE */
+
+.expertise-image {
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* BADGE */
+
+.expertise-badge {
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+
+    height: 49px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 32px 0 27px;
+
+    background: linear-gradient(
+        90deg,
+        #4774e8 0%,
+        #17377f 100%
+    );
+
+    color: #ffffff;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+
+    line-height: 1;
+    white-space: nowrap;
+
+    border-radius: 0 28px 28px 0;
+
+    z-index: 5;
+}
+
+
+/* BADGE TAIL */
+
+.expertise-badge::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -7px;
+
+    width: 0;
+    height: 0;
+
+    border-top: 7px solid #17377f;
+    border-left: 7px solid transparent;
+}
+
+
+/* DESCRIPTION */
+
+.expertise-description {
+    min-height: 112px;
+    background: #ffffff;
+}
+
+
+/* TABLET */
+
+@media (max-width: 1023px) {
+
+    .expertise-image {
+        height: 260px;
+    }
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 767px) {
+
+    .expertise-image {
+        height: 240px;
+    }
+
+    .expertise-badge {
+        height: 46px;
+        padding-left: 22px;
+        padding-right: 26px;
+        font-size: 16px;
+    }
+
+    .expertise-description {
+        padding: 24px 22px;
+    }
+
+}
