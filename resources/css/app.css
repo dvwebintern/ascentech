@@ -186,29 +186,111 @@ option {
     font-family: var(--site-font) !important;
 }
 /* =====================================================
-   GLOBAL MOBILE HORIZONTAL OVERFLOW FIX
+   GLOBAL RESET + MOBILE OVERFLOW FIX
 ===================================================== */
 
-html,
-body {
+html {
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
+    overflow-x: clip;
 }
 
+body {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-x: clip;
+}
+
+/* Prevent padding/borders from increasing element width */
 *,
 *::before,
 *::after {
     box-sizing: border-box;
 }
 
+/* Prevent media from creating horizontal overflow */
 img,
 svg,
 video,
-iframe {
+iframe,
+canvas {
     max-width: 100%;
 }
 
-body {
-    margin: 0;
+/* Prevent long text/URLs from pushing containers */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+span {
+    overflow-wrap: break-word;
+}
+
+/* Sections should never exceed viewport */
+section,
+header,
+footer,
+main,
+nav {
+    max-width: 100%;
+}
+/* =====================================================
+   MOBILE WIDTH CONTROL
+===================================================== */
+
+@media (max-width: 767px) {
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow-x: hidden;
+        overflow-x: clip;
+    }
+
+    main {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow-x: clip;
+    }
+
+    section {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .hero-section,
+    .events-section,
+    .events-wrap,
+    .gallery-container,
+    .mobile-site-header,
+    .mobile-menu-panel {
+        max-width: 100%;
+        min-width: 0;
+    }
+}@media (max-width: 767px) {
+    .hero-bg {
+        width: calc(100% - 20px);
+        max-width: calc(100% - 20px);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-content {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        box-sizing: border-box;
+    }
 }
