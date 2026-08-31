@@ -4,36 +4,215 @@
 
 @section('content')
 
-{{-- =========================================================
-     HERO
-========================================================= --}}
+<div
+    class="mobile-site-header"
+    x-data="{ mobileMenuOpen: false }"
+>
+    <div class="mobile-site-header-inner">
+ 
+        <a href="{{ route('home') }}" class="mobile-site-logo">
+            <img src="{{ asset('images/logo.svg') }}" alt="ASCENTech">
+        </a>
+ 
+       <button
+    type="button"
+    class="mobile-menu-toggle"
+    @click="mobileMenuOpen = !mobileMenuOpen"
+    :class="{ 'menu-open': mobileMenuOpen }"
+    :aria-label="mobileMenuOpen ? 'Close Menu' : 'Open Menu'"
+>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+ 
+    </div>
+ 
+    {{-- MOBILE MENU --}}
+    <div
+        class="mobile-menu-panel"
+        x-show="mobileMenuOpen"
+        x-cloak
+        x-data="{ productsOpen: false, insightsOpen: false }"
+    >
+        <div class="mobile-menu-panel-inner">
+ 
+            <a
+                href="{{ route('home') }}"
+                class="mobile-menu-link {{ request()->routeIs('home') ? 'mobile-menu-active' : '' }}"
+            >
+                Home
+            </a>
+ 
+            <a
+                href="{{ route('about') }}"
+                class="mobile-menu-link {{ request()->routeIs('about') ? 'mobile-menu-active' : '' }}"
+            >
+                About Us
+            </a>
+ 
+            <div class="mobile-menu-dropdown">
+                <button
+                    type="button"
+                    class="mobile-menu-link mobile-menu-dropdown-toggle"
+@click="productsOpen = !productsOpen; insightsOpen = false"                >
+                    <span>Products</span>
+                    <svg
+                        class="mobile-menu-chevron"
+                        :class="{ 'mobile-menu-chevron-open': productsOpen }"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="mobile-menu-submenu" x-show="productsOpen" x-collapse x-cloak>
+                    <a href="{{ route('products.nagarkaryavali') }}">Nagarkaryavali</a>
+                    <a href="{{ route('products.banking') }}">Banking Solutions</a>
+                </div>
+            </div>
+ 
+            <a
+                href="{{ route('services') }}"
+                class="mobile-menu-link {{ request()->routeIs('services') ? 'mobile-menu-active' : '' }}"
+            >
+                Services
+            </a>
+ 
+            <div class="mobile-menu-dropdown">
+                <button
+                    type="button"
+                    class="mobile-menu-link mobile-menu-dropdown-toggle"
+@click="insightsOpen = !insightsOpen; productsOpen = false"                >
+                    <span>Insights</span>
+                    <svg
+                        class="mobile-menu-chevron"
+                        :class="{ 'mobile-menu-chevron-open': insightsOpen }"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="mobile-menu-submenu" x-show="insightsOpen" x-collapse x-cloak>
+                    <a href="{{ route('awards') }}">Award and Certification</a>
+                    <a href="{{ route('events') }}">Events</a>
+                    <a href="{{ route('news') }}">News &amp; Media</a>
+                </div>
+            </div>
+ 
+            <a
+                href="{{ route('careers') }}"
+                class="mobile-menu-link {{ request()->routeIs('careers') ? 'mobile-menu-active' : '' }}"
+            >
+                Careers
+            </a>
+ 
+            <a
+                href="{{ route('contact') }}"
+                class="mobile-menu-link {{ request()->routeIs('contact') ? 'mobile-menu-active' : '' }}"
+            >
+                Contact Us
+            </a>
+ 
+        </div>
+    </div>
+</div>
 
-<section class="hero-section"
+{{-- =========================================================
+     MOBILE BOTTOM NAVIGATION
+     MOBILE ONLY
+========================================================= --}}
+<nav class="mobile-bottom-nav">
+
+    <a href="{{ route('home') }}" class="mobile-bottom-item active">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-house"></i>
+        </span>
+        <span>Home</span>
+    </a>
+
+    <a href="{{ route('about') }}" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-building"></i>
+        </span>
+        <span>About Us</span>
+    </a>
+
+    <a href="{{ route('products.nagarkaryavali') }}" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-display"></i>
+        </span>
+        <span>Products</span>
+    </a>
+
+    <a href="{{ route('services') }}" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-gear"></i>
+        </span>
+        <span>Services</span>
+    </a>
+
+    <a href="tel:+918657953083" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-phone"></i>
+        </span>
+        <span>Call Us</span>
+    </a>
+
+    <a href="https://wa.me/918657953083"
+       class="mobile-bottom-item"
+       target="_blank"
+       rel="noopener">
+
+        <span class="mobile-bottom-icon">
+            <i class="fa-brands fa-whatsapp"></i>
+        </span>
+
+        <span>WhatsApp</span>
+    </a>
+
+</nav>
+    
+{{-- HERO --}}
+
+<section
+    class="hero-section"
     x-data="{ scrolled: false }"
-    x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 500 })">
+    x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 500 })"
+>
 
     <div class="hero-bg">
 
-        @include('partials.header')
-
+        {{-- DESKTOP HEADER ONLY --}}
+        <div class="desktop-hero-header">
+            @include('partials.header')
+        </div>
         <div class="hero-content">
-
             <div class="hero-text">
-
-                <h1 class="hero-title">
+ <h1 class="hero-title">
                     Our News And Media Presence
                 </h1>
 
                 <p class="hero-subtitle">
                     Featured across leading media platforms
                 </p>
-
             </div>
-
+            <div class="hero-graphic">
+                <img src="{{ asset('images/graphic-1000x1000-4.webp') }}" alt="" class="hero-graphic-img">
+            </div>
         </div>
-
     </div>
-
 
     {{-- =====================================================
          FLOATING NAV + CTA
@@ -835,6 +1014,633 @@
         overflow: visible !important;
     }
 }
+
+
+/* =========================================================
+   MOBILE HEADER + MOBILE NAV
+   DOES NOT CHANGE DESKTOP
+========================================================= */
+
+/* Hidden by default */
+.mobile-site-header,
+.mobile-bottom-nav {
+    display: none;
+}
+
+
+/* =========================================================
+   NAV SWAP — PHONE + TABLET
+   Extended from 767px to 1023px so tablet-width screens
+   (768–1023px) also get a working navigation menu, since
+   the desktop float/sticky nav only appears at ≥1024px.
+========================================================= */
+/* Hide hero graphic on desktop and tablet */
+.hero-graphic {
+    display: none;
+}
+
+/* Show hero graphic only on mobile */
+@media (max-width: 600px) {
+    .hero-graphic {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 25px;
+    }
+
+    .hero-graphic-img {
+        display: block;
+        width: 75%;
+        max-width: 280px;
+        height: auto;
+        margin: 0 auto;
+    }
+}
+@media (max-width: 1023px) {
+
+    /* -----------------------------------------------------
+       REMOVE DESKTOP HEADER ELEMENTS ON MOBILE/TABLET
+    ----------------------------------------------------- */
+
+    .desktop-hero-header {
+        display: none !important;
+    }
+
+    .hero-float-row {
+        display: none !important;
+    }
+
+    .hero-sticky-bar {
+        display: none !important;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE/TABLET TOP HEADER
+    ----------------------------------------------------- */
+
+    .mobile-site-header {
+        display: block;
+        position: sticky;
+        top: 8px;
+        z-index: 999999;
+        width: calc(100% - 20px);
+        margin: 8px auto 10px;
+    }
+
+    .mobile-site-header-inner {
+        width: 100%;
+        height: 58px;
+        background: #fff;
+        border: 1px solid #e7e7e7;
+        border-radius: 17px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 13px;
+    }
+
+    .mobile-site-logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .mobile-site-logo img {
+        display: block;
+        width: auto;
+        height: 34px;
+        max-width: 145px;
+        object-fit: contain;
+    }
+.mobile-menu-toggle {
+    width: 50px;
+    height: 50px;
+    border: 0;
+    background: transparent;
+
+    display: grid;
+    grid-template-columns: repeat(3, 5px);
+    grid-template-rows: repeat(3, 5px);
+    gap: 4px;
+
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.mobile-menu-toggle span {
+    display: block;
+    width: 5px;
+    height: 5px;
+    background: #2E3192;
+    border-radius: 50%;
+}
+
+/* OPEN — instantly become X */
+.mobile-menu-toggle.menu-open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu-toggle.menu-open span {
+    position: absolute;
+    width: 24px;
+    height: 3px;
+    border-radius: 3px;
+    background: #2E3192;
+}
+
+/* X */
+.mobile-menu-toggle.menu-open span:nth-child(1) {
+    transform: rotate(45deg);
+}
+
+.mobile-menu-toggle.menu-open span:nth-child(2) {
+    transform: rotate(-45deg);
+}
+
+/* Hide remaining dots */
+.mobile-menu-toggle.menu-open span:nth-child(n+3) {
+    display: none;
+}
+   /* -----------------------------------------------------
+   MOBILE DROPDOWN MENU
+----------------------------------------------------- */
+
+.mobile-menu-panel {
+    margin-top: 7px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+}
+
+.mobile-menu-panel-inner {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+}
+
+/* Main menu items */
+.mobile-menu-panel-inner a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 100%;
+    min-height: 46px;
+
+    padding: 11px 14px;
+
+    color: #111827;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    text-align: left;
+}
+
+/* Dropdown buttons - same alignment as links */
+.mobile-menu-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 14px;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    color: #111827;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+}
+
+.mobile-menu-dropdown-toggle > span {
+    flex: 1;
+    text-align: left;
+}
+
+.mobile-menu-chevron {
+    width: 18px;
+    height: 18px;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+/* Submenu alignment */
+.mobile-menu-submenu {
+    padding-left: 10px;
+}
+
+.mobile-menu-submenu a {
+    padding-left: 14px;
+    min-height: 42px;
+    text-align: left;
+}
+
+/* Pressed state */
+.mobile-menu-panel-inner a:active {
+    background: #f3f4f8;
+}
+
+/* Call button - keep centered */
+.mobile-menu-panel-inner .mobile-menu-call {
+    background: #2E3192;
+    color: #fff;
+    text-align: center;
+    justify-content: center;
+    margin-top: 5px;
+}
+}
+/* =====================================================
+   MENU VISUAL STYLING ONLY
+   Does NOT change menu functionality
+===================================================== */
+
+/* Main menu box */
+.mobile-menu-panel {
+    background: #ffffff;
+    border: 1px solid #e6e7ef;
+    border-radius: 18px;
+    box-shadow: 0 10px 28px rgba(30, 32, 80, 0.12);
+}
+
+
+/* Menu spacing */
+.mobile-menu-panel-inner {
+    padding: 10px;
+}
+
+
+/* =====================================================
+   NORMAL MENU ITEMS
+===================================================== */
+
+.mobile-menu-panel-inner a {
+    color: #202235;
+    border-radius: 10px;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+/* Hover */
+.mobile-menu-panel-inner a:hover {
+    background: #f3f4fb;
+    color: #2E3192;
+}
+
+
+/* Click / active */
+.mobile-menu-panel-inner a:active {
+    background: #e9ebfa;
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   DROPDOWN BUTTON
+===================================================== */
+
+.mobile-menu-dropdown-toggle {
+    color: #202235;
+    border-radius: 10px;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+/* Hover */
+.mobile-menu-dropdown-toggle:hover {
+    background: #f3f4fb;
+    color: #2E3192;
+}
+
+
+/* Open dropdown */
+.mobile-menu-dropdown-toggle.dropdown-open {
+    background: #eef0ff;
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   ARROW
+===================================================== */
+
+.mobile-menu-chevron {
+    color: #55586b;
+}
+
+.mobile-menu-dropdown-toggle:hover .mobile-menu-chevron {
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   SUBMENU
+===================================================== */
+
+.mobile-menu-submenu {
+    border-left: 2px solid #e8eaff;
+}
+
+
+/* Submenu links */
+.mobile-menu-submenu a {
+    color: #55586b;
+    border-radius: 8px;
+}
+
+
+/* Submenu hover */
+.mobile-menu-submenu a:hover {
+    background: #f5f6fb;
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   CALL BUTTON
+===================================================== */
+
+.mobile-menu-panel-inner .mobile-menu-call {
+    background: #2E3192;
+    color: #ffffff;
+
+    border-radius: 10px;
+
+    box-shadow: 0 5px 14px rgba(46, 49, 146, 0.18);
+
+    transition:
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* Call button hover */
+.mobile-menu-panel-inner .mobile-menu-call:hover {
+    background: #25277d;
+    color: #ffffff;
+
+    box-shadow: 0 7px 18px rgba(46, 49, 146, 0.25);
+}
+
+
+/* =====================================================
+   MENU ICON HOVER
+===================================================== */
+
+.mobile-menu-toggle:hover {
+    background: #f3f4fb;
+    border-radius: 12px;
+}
+
+
+/* Keep icon change instant */
+.mobile-menu-toggle,
+.mobile-menu-toggle span,
+.mobile-menu-toggle.menu-open,
+.mobile-menu-toggle.menu-open span {
+    transition: none !important;
+}
+
+/* =========================================================
+   MOBILE ONLY (≤767px) — everything else
+========================================================= */
+
+@media (max-width: 767px) {
+
+    /* =====================================================
+       MOBILE HERO
+    ===================================================== */
+
+    .hero-section {
+        width: 100%;
+        position: relative;
+    }
+
+    .hero-bg {
+        width: calc(100% - 20px);
+    background-image: url('{{ asset('images/Scroll Banner 1200x500.jpg') }}');
+
+        min-height: 0;
+
+        aspect-ratio: auto;
+
+        margin: 0 auto;
+
+        border-radius: 18px;
+
+        background-position: center center;
+
+        overflow: hidden;
+    }
+
+    .hero-content {
+        width: 100%;
+        max-width: none;
+
+        display: flex;
+        flex-direction: column;
+
+        gap: 10px;
+
+        padding: 28px 15px 32px;
+
+        text-align: center;
+    }
+
+    .hero-text {
+        width: 100%;
+
+        padding: 0;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-title {
+        width: 100%;
+        max-width: 340px;
+
+        margin: 0 auto 12px;
+
+        font-size: 28px !important;
+        line-height: 1.08;
+
+        font-weight: 600;
+
+        text-align: center;
+    }
+
+    .hero-subtitle {
+        width: 100%;
+        max-width: 330px;
+
+        margin: 0 auto 12px;
+
+        color: #e5e7eb;
+
+        font-size: 13px;
+        line-height: 1.45;
+
+        text-align: center;
+    }
+
+    .hero-trust {
+        width: 100%;
+        max-width: 320px;
+
+        margin: 0 auto;
+
+        color: #e5e7eb;
+
+        font-size: 12px;
+        line-height: 1.4;
+
+        text-align: center;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE HERO GRAPHIC
+    ----------------------------------------------------- */
+
+    .hero-graphic {
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin: 5px auto 0;
+    }
+
+    .hero-graphic-img {
+        display: block;
+
+        width: 88%;
+        max-width: 310px;
+
+        margin: 0 auto;
+
+        object-fit: contain;
+    }
+
+
+    /* =====================================================
+       MOBILE BOTTOM NAV
+    ===================================================== */
+
+    .mobile-bottom-nav {
+        display: flex;
+
+        position: fixed;
+
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+
+        height: 58px;
+
+        z-index: 999999;
+
+        background: rgba(255, 255, 255, 0.96);
+
+        border-radius: 18px;
+
+        box-shadow:
+            0 4px 20px rgba(0, 0, 0, 0.15);
+
+        border: 1px solid #e5e7eb;
+
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+
+        align-items: stretch;
+        justify-content: space-around;
+
+        padding: 4px 3px;
+    }
+
+    .mobile-bottom-item {
+        flex: 1;
+
+        min-width: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 2px;
+
+        color: #1f2937;
+
+        text-decoration: none;
+
+        font-size: 9px;
+        font-weight: 500;
+
+        line-height: 1;
+
+        border-radius: 13px;
+
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .mobile-bottom-item.active {
+        color: #2E3192;
+        font-weight: 600;
+    }
+
+    .mobile-bottom-icon {
+        width: 23px;
+        height: 23px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-bottom-icon svg {
+        width: 21px;
+        height: 21px;
+        display: block;
+    }
+
+
+    /* -----------------------------------------------------
+       PREVENT CONTENT FROM HIDING BEHIND BOTTOM NAV
+    ----------------------------------------------------- */
+
+    body {
+        padding-bottom: 76px;
+    }
+
+
 </style>
 
 @endsection

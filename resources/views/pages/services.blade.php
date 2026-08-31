@@ -4,109 +4,241 @@
 
 @section('content')
 
+<div
+    class="mobile-site-header"
+    x-data="{ mobileMenuOpen: false }"
+>
+    <div class="mobile-site-header-inner">
+ 
+        <a href="{{ route('home') }}" class="mobile-site-logo">
+            <img src="{{ asset('images/logo.svg') }}" alt="ASCENTech">
+        </a>
+ 
+       <button
+    type="button"
+    class="mobile-menu-toggle"
+    @click="mobileMenuOpen = !mobileMenuOpen"
+    :class="{ 'menu-open': mobileMenuOpen }"
+    :aria-label="mobileMenuOpen ? 'Close Menu' : 'Open Menu'"
+>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+ 
+    </div>
+ 
+    {{-- MOBILE MENU --}}
+    <div
+        class="mobile-menu-panel"
+        x-show="mobileMenuOpen"
+        x-cloak
+        x-data="{ productsOpen: false, insightsOpen: false }"
+    >
+        <div class="mobile-menu-panel-inner">
+ 
+            <a
+                href="{{ route('home') }}"
+                class="mobile-menu-link {{ request()->routeIs('home') ? 'mobile-menu-active' : '' }}"
+            >
+                Home
+            </a>
+ 
+            <a
+                href="{{ route('about') }}"
+                class="mobile-menu-link {{ request()->routeIs('about') ? 'mobile-menu-active' : '' }}"
+            >
+                About Us
+            </a>
+ 
+            <div class="mobile-menu-dropdown">
+                <button
+                    type="button"
+                    class="mobile-menu-link mobile-menu-dropdown-toggle"
+@click="productsOpen = !productsOpen; insightsOpen = false"                >
+                    <span>Products</span>
+                    <svg
+                        class="mobile-menu-chevron"
+                        :class="{ 'mobile-menu-chevron-open': productsOpen }"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="mobile-menu-submenu" x-show="productsOpen" x-collapse x-cloak>
+                    <a href="{{ route('products.nagarkaryavali') }}">Nagarkaryavali</a>
+                    <a href="{{ route('products.banking') }}">Banking Solutions</a>
+                </div>
+            </div>
+ 
+            <a
+                href="{{ route('services') }}"
+                class="mobile-menu-link {{ request()->routeIs('services') ? 'mobile-menu-active' : '' }}"
+            >
+                Services
+            </a>
+ 
+            <div class="mobile-menu-dropdown">
+                <button
+                    type="button"
+                    class="mobile-menu-link mobile-menu-dropdown-toggle"
+@click="insightsOpen = !insightsOpen; productsOpen = false"                >
+                    <span>Insights</span>
+                    <svg
+                        class="mobile-menu-chevron"
+                        :class="{ 'mobile-menu-chevron-open': insightsOpen }"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="mobile-menu-submenu" x-show="insightsOpen" x-collapse x-cloak>
+                    <a href="{{ route('awards') }}">Award and Certification</a>
+                    <a href="{{ route('events') }}">Events</a>
+                    <a href="{{ route('news') }}">News &amp; Media</a>
+                </div>
+            </div>
+ 
+            <a
+                href="{{ route('careers') }}"
+                class="mobile-menu-link {{ request()->routeIs('careers') ? 'mobile-menu-active' : '' }}"
+            >
+                Careers
+            </a>
+ 
+            <a
+                href="{{ route('contact') }}"
+                class="mobile-menu-link {{ request()->routeIs('contact') ? 'mobile-menu-active' : '' }}"
+            >
+                Contact Us
+            </a>
+ 
+        </div>
+    </div>
+</div>
+
+    {{-- =========================================================
+     MOBILE BOTTOM NAVIGATION
+     MOBILE ONLY
+========================================================= --}}
+<nav class="mobile-bottom-nav">
+
+    <a href="{{ route('home') }}" class="mobile-bottom-item active">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-house"></i>
+        </span>
+        <span>Home</span>
+    </a>
+
+    <a href="{{ route('about') }}" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-building"></i>
+        </span>
+        <span>About Us</span>
+    </a>
+
+    <a href="{{ route('products.nagarkaryavali') }}" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-display"></i>
+        </span>
+        <span>Products</span>
+    </a>
+
+    <a href="{{ route('services') }}" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-gear"></i>
+        </span>
+        <span>Services</span>
+    </a>
+
+    <a href="tel:+918657953083" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-phone"></i>
+        </span>
+        <span>Call Us</span>
+    </a>
+
+    <a href="https://wa.me/918657953083"
+       class="mobile-bottom-item"
+       target="_blank"
+       rel="noopener">
+
+        <span class="mobile-bottom-icon">
+            <i class="fa-brands fa-whatsapp"></i>
+        </span>
+
+        <span>WhatsApp</span>
+    </a>
+
+</nav>
+
 {{-- HERO --}}
 
-<section class="hero-section"
+<section
+    class="hero-section"
     x-data="{ scrolled: false }"
-    x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 500 })">
+    x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 500 })"
+>
 
     <div class="hero-bg">
 
-        @include('partials.header')
-
+        {{-- DESKTOP HEADER ONLY --}}
+        <div class="desktop-hero-header">
+            @include('partials.header')
+        </div>
         <div class="hero-content">
-
             <div class="hero-text">
-
                 <h1 class="hero-title">Experts In IT Services And E-Governance
 </h1>
 
                 <p class="hero-subtitle">
 Services that make everything manageable together
                 </p>
-
-
-
             </div>
-
             <div class="hero-graphic">
-
-                <img
-                    src="{{ asset('images/services/graphic 1000x1000 blue.png') }}"
-                    alt=""
-                    class="hero-graphic-img">
-
+                <img src="{{ asset('images/services/graphic 1000x1000 blue.png') }}" alt="" class="hero-graphic-img">
             </div>
-
         </div>
-
     </div>
-
+    
     {{-- Floating nav + CTA row --}}
-
-    <div class="hero-float-row"
-        x-show="!scrolled"
-        x-transition.opacity>
-
+<div class="hero-float-row" x-show="!scrolled" x-transition.opacity>
         <div class="hero-float-inner">
-
             <div class="hero-float-nav">
-
                 @include('partials.nav-links')
-
             </div>
-
-            <div class="hero-float-buttons">
-
-                <a href="{{ route('products.nagarkaryavali') }}"
-                    class="btn btn-accent">
-                    View Products
-                </a>
-
-                <a href="{{ route('contact') }}"
-                    class="btn btn-outline-white">
-                    Contact us →
-                </a>
-
-            </div>
-
         </div>
-
     </div>
 
     {{-- Sticky cloned bar on scroll --}}
-
-    <div class="hero-sticky-bar"
-        x-show="scrolled"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 -translate-y-4"
-        x-transition:enter-end="opacity-100 translate-y-0"
-        x-cloak>
-
+    <div class="hero-sticky-bar" x-show="scrolled"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 -translate-y-4"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         x-cloak>
         <div class="hero-sticky-inner">
-
             <a href="{{ route('home') }}">
-
-                <img
-                    src="{{ asset('images/logo.svg') }}"
-                    alt="ASCENTech"
-                    class="hero-sticky-logo">
-
+                <img src="{{ asset('images/logo.svg') }}" alt="ASCENTech" class="hero-sticky-logo">
             </a>
-
             <div class="hero-sticky-nav">
-
                 @include('partials.nav-links')
-
             </div>
-
         </div>
-
     </div>
 
 </section>
-
-
 {{-- =========================================================
      SERVICES PAGE CONTENT
      Place this AFTER your existing HERO section
@@ -169,7 +301,7 @@ Services that make everything manageable together
 
                     </ul>
 
-                    <a href="#" class="service-enquire-btn">
+                    <a href="{{ route('contact') }}" class="service-enquire-btn">
                         Enquire Now <span>›</span>
                     </a>
 
@@ -211,7 +343,7 @@ Services that make everything manageable together
 
                     </ul>
 
-                    <a href="#" class="service-enquire-btn">
+                    <a href="{{ route('contact') }}" class="service-enquire-btn">
                         Enquire Now <span>›</span>
                     </a>
 
@@ -256,7 +388,7 @@ Services that make everything manageable together
 
                     </ul>
 
-                    <a href="#" class="service-enquire-btn">
+                    <a href="{{ route('contact') }}" class="service-enquire-btn">
                         Enquire Now <span>›</span>
                     </a>
 
@@ -303,7 +435,7 @@ Services that make everything manageable together
 
                     </ul>
 
-                    <a href="#" class="service-enquire-btn">
+                    <a href="{{ route('contact') }}" class="service-enquire-btn">
                         Enquire Now <span>›</span>
                     </a>
 
@@ -348,7 +480,7 @@ Services that make everything manageable together
 
                     </ul>
 
-                    <a href="#" class="service-enquire-btn">
+                    <a href="{{ route('contact') }}" class="service-enquire-btn">
                         Enquire Now <span>›</span>
                     </a>
 
@@ -392,7 +524,7 @@ Services that make everything manageable together
 
                     </ul>
 
-                    <a href="#" class="service-enquire-btn">
+                    <a href="{{ route('contact') }}" class="service-enquire-btn">
                         Enquire Now <span>›</span>
                     </a>
 
@@ -708,6 +840,7 @@ Services that make everything manageable together
         </div>
     </div>
 </section>
+
 <style>
 
 /* ===================== GLOBAL HELPERS ===================== */
@@ -1376,6 +1509,958 @@ Services that make everything manageable together
     color: #555;
 }
 
+
+/* =========================================================
+   MOBILE HEADER + MOBILE NAV
+   DOES NOT CHANGE DESKTOP
+========================================================= */
+
+/* Hidden by default */
+.mobile-site-header,
+.mobile-bottom-nav {
+    display: none;
+}
+
+
+/* =========================================================
+   NAV SWAP — PHONE + TABLET
+   Extended from 767px to 1023px so tablet-width screens
+   (768–1023px) also get a working navigation menu, since
+   the desktop float/sticky nav only appears at ≥1024px.
+========================================================= */
+
+@media (max-width: 1023px) {
+
+    /* -----------------------------------------------------
+       REMOVE DESKTOP HEADER ELEMENTS ON MOBILE/TABLET
+    ----------------------------------------------------- */
+
+    .desktop-hero-header {
+        display: none !important;
+    }
+
+    .hero-float-row {
+        display: none !important;
+    }
+
+    .hero-sticky-bar {
+        display: none !important;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE/TABLET TOP HEADER
+    ----------------------------------------------------- */
+
+    .mobile-site-header {
+        display: block;
+        position: sticky;
+        top: 8px;
+        z-index: 999999;
+        width: calc(100% - 20px);
+        margin: 8px auto 10px;
+    }
+
+    .mobile-site-header-inner {
+        width: 100%;
+        height: 58px;
+        background: #fff;
+        border: 1px solid #e7e7e7;
+        border-radius: 17px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 13px;
+    }
+
+    .mobile-site-logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .mobile-site-logo img {
+        display: block;
+        width: auto;
+        height: 34px;
+        max-width: 145px;
+        object-fit: contain;
+    }
+.mobile-menu-toggle {
+    width: 50px;
+    height: 50px;
+    border: 0;
+    background: transparent;
+
+    display: grid;
+    grid-template-columns: repeat(3, 5px);
+    grid-template-rows: repeat(3, 5px);
+    gap: 4px;
+
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.mobile-menu-toggle span {
+    display: block;
+    width: 5px;
+    height: 5px;
+    background: #2E3192;
+    border-radius: 50%;
+}
+
+/* OPEN — instantly become X */
+.mobile-menu-toggle.menu-open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu-toggle.menu-open span {
+    position: absolute;
+    width: 24px;
+    height: 3px;
+    border-radius: 3px;
+    background: #2E3192;
+}
+
+/* X */
+.mobile-menu-toggle.menu-open span:nth-child(1) {
+    transform: rotate(45deg);
+}
+
+.mobile-menu-toggle.menu-open span:nth-child(2) {
+    transform: rotate(-45deg);
+}
+
+/* Hide remaining dots */
+.mobile-menu-toggle.menu-open span:nth-child(n+3) {
+    display: none;
+}
+   /* -----------------------------------------------------
+   MOBILE DROPDOWN MENU
+----------------------------------------------------- */
+
+.mobile-menu-panel {
+    margin-top: 7px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+}
+
+.mobile-menu-panel-inner {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+}
+
+/* Main menu items */
+.mobile-menu-panel-inner a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 100%;
+    min-height: 46px;
+
+    padding: 11px 14px;
+
+    color: #111827;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    text-align: left;
+}
+
+/* Dropdown buttons - same alignment as links */
+.mobile-menu-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 14px;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    color: #111827;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+}
+
+.mobile-menu-dropdown-toggle > span {
+    flex: 1;
+    text-align: left;
+}
+
+.mobile-menu-chevron {
+    width: 18px;
+    height: 18px;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+/* Submenu alignment */
+.mobile-menu-submenu {
+    padding-left: 10px;
+}
+
+.mobile-menu-submenu a {
+    padding-left: 14px;
+    min-height: 42px;
+    text-align: left;
+}
+
+/* Pressed state */
+.mobile-menu-panel-inner a:active {
+    background: #f3f4f8;
+}
+
+/* Call button - keep centered */
+.mobile-menu-panel-inner .mobile-menu-call {
+    background: #2E3192;
+    color: #fff;
+    text-align: center;
+    justify-content: center;
+    margin-top: 5px;
+}
+}
+/* =====================================================
+   MENU VISUAL STYLING ONLY
+   Does NOT change menu functionality
+===================================================== */
+
+/* Main menu box */
+.mobile-menu-panel {
+    background: #ffffff;
+    border: 1px solid #e6e7ef;
+    border-radius: 18px;
+    box-shadow: 0 10px 28px rgba(30, 32, 80, 0.12);
+}
+
+
+/* Menu spacing */
+.mobile-menu-panel-inner {
+    padding: 10px;
+}
+
+
+/* =====================================================
+   NORMAL MENU ITEMS
+===================================================== */
+
+.mobile-menu-panel-inner a {
+    color: #202235;
+    border-radius: 10px;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+/* Hover */
+.mobile-menu-panel-inner a:hover {
+    background: #f3f4fb;
+    color: #2E3192;
+}
+
+
+/* Click / active */
+.mobile-menu-panel-inner a:active {
+    background: #e9ebfa;
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   DROPDOWN BUTTON
+===================================================== */
+
+.mobile-menu-dropdown-toggle {
+    color: #202235;
+    border-radius: 10px;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+/* Hover */
+.mobile-menu-dropdown-toggle:hover {
+    background: #f3f4fb;
+    color: #2E3192;
+}
+
+
+/* Open dropdown */
+.mobile-menu-dropdown-toggle.dropdown-open {
+    background: #eef0ff;
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   ARROW
+===================================================== */
+
+.mobile-menu-chevron {
+    color: #55586b;
+}
+
+.mobile-menu-dropdown-toggle:hover .mobile-menu-chevron {
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   SUBMENU
+===================================================== */
+
+.mobile-menu-submenu {
+    border-left: 2px solid #e8eaff;
+}
+
+
+/* Submenu links */
+.mobile-menu-submenu a {
+    color: #55586b;
+    border-radius: 8px;
+}
+
+
+/* Submenu hover */
+.mobile-menu-submenu a:hover {
+    background: #f5f6fb;
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   CALL BUTTON
+===================================================== */
+
+.mobile-menu-panel-inner .mobile-menu-call {
+    background: #2E3192;
+    color: #ffffff;
+
+    border-radius: 10px;
+
+    box-shadow: 0 5px 14px rgba(46, 49, 146, 0.18);
+
+    transition:
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* Call button hover */
+.mobile-menu-panel-inner .mobile-menu-call:hover {
+    background: #25277d;
+    color: #ffffff;
+
+    box-shadow: 0 7px 18px rgba(46, 49, 146, 0.25);
+}
+
+
+/* =====================================================
+   MENU ICON HOVER
+===================================================== */
+
+.mobile-menu-toggle:hover {
+    background: #f3f4fb;
+    border-radius: 12px;
+}
+
+
+/* Keep icon change instant */
+.mobile-menu-toggle,
+.mobile-menu-toggle span,
+.mobile-menu-toggle.menu-open,
+.mobile-menu-toggle.menu-open span {
+    transition: none !important;
+}
+/* =========================================================
+   MOBILE ONLY (≤767px) — everything else
+========================================================= */
+
+@media (max-width: 767px) {
+
+    /* =====================================================
+       MOBILE HERO
+    ===================================================== */
+
+    .hero-section {
+        width: 100%;
+        position: relative;
+    }
+
+    .hero-bg {
+        width: calc(100% - 20px);
+    background-image: url('{{ asset('images/Scroll Banner 1200x500.jpg') }}');
+
+        min-height: 0;
+
+        aspect-ratio: auto;
+
+        margin: 0 auto;
+
+        border-radius: 18px;
+
+        background-position: center center;
+
+        overflow: hidden;
+    }
+
+    .hero-content {
+        width: 100%;
+        max-width: none;
+
+        display: flex;
+        flex-direction: column;
+
+        gap: 10px;
+
+        padding: 28px 15px 32px;
+
+        text-align: center;
+    }
+
+    .hero-text {
+        width: 100%;
+
+        padding: 0;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-title {
+        width: 100%;
+        max-width: 340px;
+
+        margin: 0 auto 12px;
+
+        font-size: 28px !important;
+        line-height: 1.08;
+
+        font-weight: 600;
+
+        text-align: center;
+    }
+
+    .hero-subtitle {
+        width: 100%;
+        max-width: 330px;
+
+        margin: 0 auto 12px;
+
+        color: #e5e7eb;
+
+        font-size: 13px;
+        line-height: 1.45;
+
+        text-align: center;
+    }
+
+    .hero-trust {
+        width: 100%;
+        max-width: 320px;
+
+        margin: 0 auto;
+
+        color: #e5e7eb;
+
+        font-size: 12px;
+        line-height: 1.4;
+
+        text-align: center;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE HERO GRAPHIC
+    ----------------------------------------------------- */
+
+    .hero-graphic {
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin: 5px auto 0;
+    }
+
+    .hero-graphic-img {
+        display: block;
+
+        width: 88%;
+        max-width: 310px;
+
+        margin: 0 auto;
+
+        object-fit: contain;
+    }
+
+
+    /* =====================================================
+       MOBILE BOTTOM NAV
+    ===================================================== */
+
+    .mobile-bottom-nav {
+        display: flex;
+
+        position: fixed;
+
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+
+        height: 58px;
+
+        z-index: 999999;
+
+        background: rgba(255, 255, 255, 0.96);
+
+        border-radius: 18px;
+
+        box-shadow:
+            0 4px 20px rgba(0, 0, 0, 0.15);
+
+        border: 1px solid #e5e7eb;
+
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+
+        align-items: stretch;
+        justify-content: space-around;
+
+        padding: 4px 3px;
+    }
+
+    .mobile-bottom-item {
+        flex: 1;
+
+        min-width: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 2px;
+
+        color: #1f2937;
+
+        text-decoration: none;
+
+        font-size: 9px;
+        font-weight: 500;
+
+        line-height: 1;
+
+        border-radius: 13px;
+
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .mobile-bottom-item.active {
+        color: #2E3192;
+        font-weight: 600;
+    }
+
+    .mobile-bottom-icon {
+        width: 23px;
+        height: 23px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-bottom-icon svg {
+        width: 21px;
+        height: 21px;
+        display: block;
+    }
+
+    /* -----------------------------------------------------
+       PREVENT CONTENT FROM HIDING BEHIND BOTTOM NAV
+    ----------------------------------------------------- */
+
+    body {
+        padding-bottom: 76px;
+    }
+}
+@media (max-width: 767px) {
+
+    /* =====================================================
+       SERVICES SECTION
+    ===================================================== */
+
+    .services-page-section {
+        padding: 40px 0 25px;
+        background: #fff;
+    }
+
+    .services-page-container {
+        width: calc(100% - 24px);
+        max-width: none;
+        margin: 0 auto;
+    }
+
+    /* =====================================================
+       SERVICES HEADING
+    ===================================================== */
+
+    .services-page-heading {
+        text-align: center;
+        margin-bottom: 24px;
+    }
+
+    .services-page-heading h2 {
+        margin: 0;
+        font-family: "Inter Tight", sans-serif;
+        font-size: 28px;
+        line-height: 1.15;
+        font-weight: 600;
+    }
+
+    .services-page-heading p {
+        margin: 6px 0 0;
+        font-size: 13px;
+        line-height: 1.4;
+        color: #777;
+    }
+
+    /* =====================================================
+       SERVICES LIST
+    ===================================================== */
+
+    .services-list {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    /* =====================================================
+       SERVICE CARD
+    ===================================================== */
+
+    .service-row,
+    .service-row-reverse {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: 0;
+        margin: 0;
+        padding: 10px;
+        border: 1px solid #dedede;
+        border-radius: 15px;
+        overflow: hidden;
+        background: #fff;
+    }
+
+    /* =====================================================
+       SERVICE IMAGE
+    ===================================================== */
+
+    .service-row .service-image,
+    .service-row-reverse .service-image {
+        order: 1;
+        width: 100%;
+        height: 190px;
+        min-height: 190px;
+        overflow: hidden;
+    }
+
+    .service-image img {
+        width: 100%;
+        height: 190px;
+        display: block;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    /* =====================================================
+       SERVICE CONTENT
+    ===================================================== */
+
+    .service-row .service-content,
+    .service-row-reverse .service-content {
+        order: 2;
+        width: 100%;
+        padding: 17px 7px 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .service-content h3 {
+        margin: 0 0 8px;
+        font-family: "Inter Tight", sans-serif;
+        font-size: 20px;
+        line-height: 1.2;
+        font-weight: 600;
+        color: #111;
+    }
+
+    .service-content p {
+        margin: 0 0 12px;
+        font-size: 13px;
+        line-height: 1.55;
+        color: #303030;
+    }
+
+    /* =====================================================
+       SERVICE BULLET LIST
+    ===================================================== */
+
+    .service-content ul {
+        margin: 0 0 14px;
+        padding-left: 18px;
+        list-style-type: disc;
+    }
+
+    .service-content li {
+        margin-bottom: 7px;
+        font-size: 12px;
+        line-height: 1.45;
+        color: #222;
+    }
+
+    .service-content li:last-child {
+        margin-bottom: 0;
+    }
+
+    /* =====================================================
+       ENQUIRE BUTTON
+    ===================================================== */
+
+    .service-enquire-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        align-self: flex-start;
+        gap: 3px;
+        width: fit-content;
+        padding: 8px 15px;
+        border: 1px solid #1717a0;
+        border-radius: 30px;
+        color: #1717a0;
+        background: #fff;
+        font-size: 12px;
+        line-height: 1;
+        text-decoration: none;
+    }
+
+    .service-enquire-btn span {
+        font-size: 17px;
+        line-height: 1;
+    }
+
+
+    /* =====================================================
+       TRUSTED PARTNER
+    ===================================================== */
+
+    .trusted-partner-section {
+        padding: 30px 0 25px;
+        background: #fff;
+    }
+
+    .trusted-partner-container {
+        width: calc(100% - 24px);
+        max-width: none;
+        margin: 0 auto;
+    }
+
+    .trusted-heading {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .trusted-heading h2 {
+        margin: 0;
+        font-family: "Inter Tight", sans-serif;
+        font-size: 28px;
+        line-height: 1.15;
+        font-weight: 600;
+        color: #111;
+    }
+
+    .trusted-heading p {
+        margin: 5px 0 0;
+        font-size: 13px;
+        line-height: 1.4;
+        color: #777;
+    }
+
+    /* =====================================================
+       TRUSTED FEATURES
+    ===================================================== */
+
+    .trusted-features {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .trusted-feature {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 14px;
+        width: 100%;
+        min-height: 70px;
+        padding: 10px 25px;
+        border-right: 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .trusted-feature:last-child {
+        border-bottom: 0;
+    }
+
+    .trusted-icon {
+        width: 52px;
+        height: 52px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .trusted-icon img {
+        width: 52px;
+        height: 52px;
+        object-fit: contain;
+    }
+
+    .trusted-feature h3 {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.2;
+        font-weight: 400;
+        color: #222;
+    }
+
+    .trusted-feature p {
+        margin: 3px 0 0;
+        font-size: 15px;
+        line-height: 1.2;
+        color: #333;
+    }
+
+
+    /* =====================================================
+       FAQ
+    ===================================================== */
+
+    .services-faq-section {
+        padding: 20px;
+        background: #fff;
+    }
+
+    .services-faq-container {
+        width: calc(100% - 24px);
+        max-width: none;
+        margin: 0 auto;
+    }
+
+    .services-faq-heading {
+        text-align: center;
+        margin-bottom: 18px;
+    }
+
+    .services-faq-heading h2 {
+        margin: 0;
+        font-family: "Inter Tight", sans-serif;
+        font-size: 28px;
+        line-height: 1.15;
+        font-weight: 600;
+        color: #111;
+    }
+
+    /* =====================================================
+       FAQ QUESTION
+    ===================================================== */
+
+    .service-faq-item {
+        border-bottom: 1px solid #e7e7e7;
+    }
+
+    .service-faq-question {
+        width: 100%;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        0px 10px 12px 10px
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        text-align: left;
+        font-family: inherit;
+        font-size: 13px;
+        line-height: 1.4;
+        color: #111;
+    }
+
+    .service-faq-question > span:first-child {
+        flex: 1;
+    }
+
+    .faq-plus {
+        flex-shrink: 0;
+        font-size: 18px;
+        line-height: 1;
+        color: #999;
+        transition: transform .2s ease;
+    }
+
+    .faq-open {
+        transform: rotate(45deg);
+    }
+
+    /* =====================================================
+       FAQ ANSWER
+    ===================================================== */
+
+    .service-faq-answer {
+        padding: 0px 10px 12px 10px;
+    }
+
+    .service-faq-answer p {
+        margin: 0;
+        max-width: none;
+        font-size: 12px;
+        line-height: 1.55;
+        color: #555;
+    }
+
+}
+
 /* =========================================================
    BOTTOM CTA
 ========================================================= */
@@ -1474,157 +2559,232 @@ Services that make everything manageable together
         margin-top: -20px;
     }
 }
-/* =========================================================
-   TABLET
+  /* =========================================================
+
+   MOBILE CTA — HORIZONTAL LAYOUT
+
+   Reference: text LEFT + image RIGHT
+
 ========================================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 767px) {
 
-    .services-page-container {
-        width: calc(100% - 30px);
+    .services-bottom-cta {
+
+        margin-top: 25px;
+
+        padding: 20px 0 90px;
+
+        background: #fff;
+
     }
-
-    .service-content p {
-        font-size: 8px;
-    }
-
-    .service-content li {
-        font-size: 7.5px;
-    }
-
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 900px) {
-
-    .services-page-container {
-        width: calc(100% - 30px);
-    }
-
-    .service-content p {
-        font-size: 8px;
-    }
-
-    .service-content li {
-        font-size: 7.5px;
-    }
-
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 650px) {
-
-    .services-page-section {
-        padding-top: 40px;
-    }
-
-    .services-page-heading h2 {
-        font-size: 28px;
-    }
-
-
-    /* STACK SERVICES */
-
-    .service-row,
-    .service-row-reverse {
-        grid-template-columns: 1fr;
-    }
-
-    .service-row-reverse .service-image {
-        order: 1;
-    }
-
-    .service-row-reverse .service-content {
-        order: 2;
-    }
-
-    .service-image {
-        min-height: 190px;
-        height: 190px;
-    }
-
-    .service-content {
-        padding: 16px;
-    }
-
-    .service-content h3 {
-        font-size: 19px;
-    }
-
-    .service-content p {
-        font-size: 12px;
-        line-height: 1.5;
-    }
-
-    .service-content li {
-        font-size: 11px;
-        line-height: 1.4;
-    }
-
-    .service-enquire-btn {
-        padding: 6px 12px;
-        font-size: 11px;
-    }
-
-
-    /* TRUST */
-
-    .trusted-features {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-
-    .trusted-feature {
-        border-right: 0;
-        border-bottom: 1px solid #ddd;
-        padding: 10px;
-    }
-
-    .trusted-feature:last-child {
-        border-bottom: 0;
-    }
-
-
-    /* FAQ */
-
-    .service-faq-question {
-        font-size: 11px;
-        padding: 14px 3px;
-    }
-
-    .service-faq-answer p {
-        font-size: 11px;
-    }
-
-
-    /* CTA */
 
     .services-bottom-cta-inner {
-        width: calc(100% - 30px);
-        min-height: 150px;
+
+        width: calc(100% - 24px);
+
+        min-height: 135px;
+
+        margin: 0 auto;
+
+        display: flex;
+
+        flex-direction: row;
+
+        align-items: stretch;
+
+        justify-content: space-between;
+
+        position: relative;
+
+        overflow: hidden;
+
+        border-radius: 17px;
+
+        background: linear-gradient(
+
+            90deg,
+
+            #2E3192 0%,
+
+            #2E3192 55%,
+
+            rgba(46,49,146,0.65) 78%,
+
+            rgba(46,49,146,0.15) 100%
+
+        );
+
     }
 
+    /* =====================================================
+
+       LEFT SIDE — CONTENT
+
+    ===================================================== */
+
     .services-cta-content {
-        padding-left: 18px;
+
+        width: 62%;
+
+        max-width: none;
+
+        padding: 22px 0 20px 18px;
+
+        position: relative;
+
+        z-index: 3;
+
+        text-align: left;
+
     }
 
     .services-cta-content h2 {
-        font-size: 20px;
+
+        margin: 0 0 8px;
+
+        font-family: "Inter Tight", sans-serif;
+
+        font-size: 18px;
+
+        line-height: 1.15;
+
+        font-weight: 700;
+
+        color: #fff;
+
     }
 
+    .services-cta-content h2 span {
+
+        color: #fff;
+
+    }
+
+    .services-cta-content p {
+
+        margin: 0 0 13px;
+
+        font-size: 10px;
+
+        line-height: 1.35;
+
+        color: #e5e7eb;
+
+    }
+
+    .services-cta-btn {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 5px;
+
+        padding: 7px 13px;
+
+        border-radius: 999px;
+
+        background: #fff;
+
+        color: #111;
+
+        font-size: 10px;
+
+        line-height: 1;
+
+        font-weight: 600;
+
+        text-decoration: none;
+
+    }
+
+    .services-cta-btn span {
+
+        font-size: 13px;
+
+    }
+
+    /* =====================================================
+
+       RIGHT SIDE — IMAGE
+
+    ===================================================== */
+
     .services-cta-image {
+
         width: 43%;
+
+        height: 100%;
+
+        margin: 0;
+
+        display: flex;
+
+        align-items: flex-end;
+
+        justify-content: flex-end;
+
+        position: absolute;
+
+        right: 0;
+
+        bottom: 0;
+
+        z-index: 2;
+
+    }
+
+    .services-cta-image img {
+
+        width: 100%;
+
+        max-width: none;
+
+        height: auto;
+
+        max-height: 180px;
+
+        object-fit: contain;
+
+        object-position: bottom right;
+
+        display: block;
+
     }
 
 }
+
+    @media (max-width: 380px) {
+
+        .services-cta-content {
+
+            padding: 24px 18px 18px;
+
+        }
+
+        .services-cta-content h2 {
+
+            font-size: 22px;
+
+        }
+
+        .services-cta-content p {
+
+            font-size: 12px;
+
+        }
+
+        .services-cta-image {
+
+            width: 80%;
+
+        }
+
+    }
+
 
 </style>
 

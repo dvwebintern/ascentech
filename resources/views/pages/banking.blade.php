@@ -3,19 +3,211 @@
 
 @section('content')
 
+<div
+    class="mobile-site-header"
+    x-data="{ mobileMenuOpen: false }"
+>
+    <div class="mobile-site-header-inner">
+ 
+        <a href="{{ route('home') }}" class="mobile-site-logo">
+            <img src="{{ asset('images/logo.svg') }}" alt="ASCENTech">
+        </a>
+ 
+       <button
+    type="button"
+    class="mobile-menu-toggle"
+    @click="mobileMenuOpen = !mobileMenuOpen"
+    :class="{ 'menu-open': mobileMenuOpen }"
+    :aria-label="mobileMenuOpen ? 'Close Menu' : 'Open Menu'"
+>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+ 
+    </div>
+ 
+    {{-- MOBILE MENU --}}
+    <div
+        class="mobile-menu-panel"
+        x-show="mobileMenuOpen"
+        x-cloak
+        x-data="{ productsOpen: false, insightsOpen: false }"
+    >
+        <div class="mobile-menu-panel-inner">
+ 
+            <a
+                href="{{ route('home') }}"
+                class="mobile-menu-link {{ request()->routeIs('home') ? 'mobile-menu-active' : '' }}"
+            >
+                Home
+            </a>
+ 
+            <a
+                href="{{ route('about') }}"
+                class="mobile-menu-link {{ request()->routeIs('about') ? 'mobile-menu-active' : '' }}"
+            >
+                About Us
+            </a>
+ 
+            <div class="mobile-menu-dropdown">
+                <button
+                    type="button"
+                    class="mobile-menu-link mobile-menu-dropdown-toggle"
+@click="productsOpen = !productsOpen; insightsOpen = false"                >
+                    <span>Products</span>
+                    <svg
+                        class="mobile-menu-chevron"
+                        :class="{ 'mobile-menu-chevron-open': productsOpen }"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="mobile-menu-submenu" x-show="productsOpen" x-collapse x-cloak>
+                    <a href="{{ route('products.nagarkaryavali') }}">Nagarkaryavali</a>
+                    <a href="{{ route('products.banking') }}">Banking Solutions</a>
+                </div>
+            </div>
+ 
+            <a
+                href="{{ route('services') }}"
+                class="mobile-menu-link {{ request()->routeIs('services') ? 'mobile-menu-active' : '' }}"
+            >
+                Services
+            </a>
+ 
+            <div class="mobile-menu-dropdown">
+                <button
+                    type="button"
+                    class="mobile-menu-link mobile-menu-dropdown-toggle"
+@click="insightsOpen = !insightsOpen; productsOpen = false"                >
+                    <span>Insights</span>
+                    <svg
+                        class="mobile-menu-chevron"
+                        :class="{ 'mobile-menu-chevron-open': insightsOpen }"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="mobile-menu-submenu" x-show="insightsOpen" x-collapse x-cloak>
+                    <a href="{{ route('awards') }}">Award and Certification</a>
+                    <a href="{{ route('events') }}">Events</a>
+                    <a href="{{ route('news') }}">News &amp; Media</a>
+                </div>
+            </div>
+ 
+            <a
+                href="{{ route('careers') }}"
+                class="mobile-menu-link {{ request()->routeIs('careers') ? 'mobile-menu-active' : '' }}"
+            >
+                Careers
+            </a>
+ 
+            <a
+                href="{{ route('contact') }}"
+                class="mobile-menu-link {{ request()->routeIs('contact') ? 'mobile-menu-active' : '' }}"
+            >
+                Contact Us
+            </a>
+ 
+        </div>
+    </div>
+</div>
+
+
+    {{-- =========================================================
+     MOBILE BOTTOM NAVIGATION
+     MOBILE ONLY
+========================================================= --}}
+<nav class="mobile-bottom-nav">
+
+    <a href="{{ route('home') }}" class="mobile-bottom-item active">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-house"></i>
+        </span>
+        <span>Home</span>
+    </a>
+
+    <a href="{{ route('about') }}" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-building"></i>
+        </span>
+        <span>About Us</span>
+    </a>
+
+    <a href="{{ route('products.nagarkaryavali') }}" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-display"></i>
+        </span>
+        <span>Products</span>
+    </a>
+
+    <a href="{{ route('services') }}" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-gear"></i>
+        </span>
+        <span>Services</span>
+    </a>
+
+    <a href="tel:+918657953083" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-phone"></i>
+        </span>
+        <span>Call Us</span>
+    </a>
+
+    <a href="https://wa.me/918657953083"
+       class="mobile-bottom-item"
+       target="_blank"
+       rel="noopener">
+
+        <span class="mobile-bottom-icon">
+            <i class="fa-brands fa-whatsapp"></i>
+        </span>
+
+        <span>WhatsApp</span>
+    </a>
+
+</nav>
 {{-- HERO --}}
-<section class="hero-section" x-data="{ scrolled: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 500 })">
+
+<section
+    class="hero-section"
+    x-data="{ scrolled: false }"
+    x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 500 })"
+>
 
     <div class="hero-bg">
-        @include('partials.header')
 
+        {{-- DESKTOP HEADER ONLY --}}
+        <div class="desktop-hero-header">
+            @include('partials.header')
+        </div>
         <div class="hero-content">
             <div class="hero-text">
                 <h1 class="hero-title">Banking Solutions</h1>
-                <p class="hero-subtitle">Platform for Banks, NBFCs, Fintech Companies and more</p>
+                <p class="hero-subtitle">IFSC, Finance, Banking Solution</p>
+            </div>
+            <div class="hero-graphic">
+                <img src="{{ asset('images/graphic-1000x1000-4.webp') }}" alt="" class="hero-graphic-img">
             </div>
         </div>
     </div>
+    
     {{-- Floating nav + CTA row --}}
 <div class="hero-float-row" x-show="!scrolled" x-transition.opacity>
         <div class="hero-float-inner">
@@ -37,6 +229,10 @@
             </a>
             <div class="hero-sticky-nav">
                 @include('partials.nav-links')
+            </div>
+             <div class="hero-float-buttons">
+                <a href="{{ route('products.nagarkaryavali') }}" class="btn btn-accent">View Products</a>
+                <a href="{{ route('contact') }}" class="btn btn-outline-white">Contact us →</a>
             </div>
         </div>
     </div>
@@ -428,6 +624,28 @@
     }
 }
 
+
+/* =========================================================
+   DESKTOP ONLY
+========================================================= */
+
+@media (min-width: 1024px) {
+
+    .hero-float-nav,
+    .hero-sticky-nav {
+        display: block;
+        position: relative;
+    }
+
+    .hero-float-row {
+        overflow: visible !important;
+    }
+
+    .hero-float-inner {
+        overflow: visible !important;
+    }
+}
+
 /* =========================================================
    BOTTOM CTA
 ========================================================= */
@@ -546,6 +764,1380 @@
 
 }
 
+
+/* =========================================================
+   MOBILE HEADER + MOBILE NAV
+   DOES NOT CHANGE DESKTOP
+========================================================= */
+
+/* Hidden by default */
+.mobile-site-header,
+.mobile-bottom-nav {
+    display: none;
+}
+
+
+/* =========================================================
+   NAV SWAP — PHONE + TABLET
+   Extended from 767px to 1023px so tablet-width screens
+   (768–1023px) also get a working navigation menu, since
+   the desktop float/sticky nav only appears at ≥1024px.
+========================================================= */
+/* Hide hero graphic on desktop and tablet */
+.hero-graphic {
+    display: none;
+}
+
+/* Show hero graphic only on mobile */
+@media (max-width: 600px) {
+    .hero-graphic {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 25px;
+    }
+
+    .hero-graphic-img {
+        display: block;
+        width: 75%;
+        max-width: 280px;
+        height: auto;
+        margin: 0 auto;
+    }
+}
+@media (max-width: 1023px) {
+
+    /* -----------------------------------------------------
+       REMOVE DESKTOP HEADER ELEMENTS ON MOBILE/TABLET
+    ----------------------------------------------------- */
+
+    .desktop-hero-header {
+        display: none !important;
+    }
+
+    .hero-float-row {
+        display: none !important;
+    }
+
+    .hero-sticky-bar {
+        display: none !important;
+    }
+
+    /* -----------------------------------------------------
+       MOBILE/TABLET TOP HEADER
+    ----------------------------------------------------- */
+
+    .mobile-site-header {
+        display: block;
+        position: sticky;
+        top: 8px;
+        z-index: 999999;
+        width: calc(100% - 20px);
+        margin: 8px auto 10px;
+    }
+
+    .mobile-site-header-inner {
+        width: 100%;
+        height: 58px;
+        background: #fff;
+        border: 1px solid #e7e7e7;
+        border-radius: 17px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 13px;
+    }
+
+    .mobile-site-logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .mobile-site-logo img {
+        display: block;
+        width: auto;
+        height: 34px;
+        max-width: 145px;
+        object-fit: contain;
+    }
+.mobile-menu-toggle {
+    width: 50px;
+    height: 50px;
+    border: 0;
+    background: transparent;
+
+    display: grid;
+    grid-template-columns: repeat(3, 5px);
+    grid-template-rows: repeat(3, 5px);
+    gap: 4px;
+
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.mobile-menu-toggle span {
+    display: block;
+    width: 5px;
+    height: 5px;
+    background: #2E3192;
+    border-radius: 50%;
+}
+
+/* OPEN — instantly become X */
+.mobile-menu-toggle.menu-open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu-toggle.menu-open span {
+    position: absolute;
+    width: 24px;
+    height: 3px;
+    border-radius: 3px;
+    background: #2E3192;
+}
+
+/* X */
+.mobile-menu-toggle.menu-open span:nth-child(1) {
+    transform: rotate(45deg);
+}
+
+.mobile-menu-toggle.menu-open span:nth-child(2) {
+    transform: rotate(-45deg);
+}
+
+/* Hide remaining dots */
+.mobile-menu-toggle.menu-open span:nth-child(n+3) {
+    display: none;
+}
+   /* -----------------------------------------------------
+   MOBILE DROPDOWN MENU
+----------------------------------------------------- */
+
+.mobile-menu-panel {
+    margin-top: 7px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+}
+
+.mobile-menu-panel-inner {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+}
+
+/* Main menu items */
+.mobile-menu-panel-inner a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 100%;
+    min-height: 46px;
+
+    padding: 11px 14px;
+
+    color: #111827;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    text-align: left;
+}
+
+/* Dropdown buttons - same alignment as links */
+.mobile-menu-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 14px;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    color: #111827;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+}
+
+.mobile-menu-dropdown-toggle > span {
+    flex: 1;
+    text-align: left;
+}
+
+.mobile-menu-chevron {
+    width: 18px;
+    height: 18px;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+/* Submenu alignment */
+.mobile-menu-submenu {
+    padding-left: 10px;
+}
+
+.mobile-menu-submenu a {
+    padding-left: 14px;
+    min-height: 42px;
+    text-align: left;
+}
+
+/* Pressed state */
+.mobile-menu-panel-inner a:active {
+    background: #f3f4f8;
+}
+
+/* Call button - keep centered */
+.mobile-menu-panel-inner .mobile-menu-call {
+    background: #2E3192;
+    color: #fff;
+    text-align: center;
+    justify-content: center;
+    margin-top: 5px;
+}
+}
+/* =====================================================
+   MENU VISUAL STYLING ONLY
+   Does NOT change menu functionality
+===================================================== */
+
+/* Main menu box */
+.mobile-menu-panel {
+    background: #ffffff;
+    border: 1px solid #e6e7ef;
+    border-radius: 18px;
+    box-shadow: 0 10px 28px rgba(30, 32, 80, 0.12);
+}
+
+
+/* Menu spacing */
+.mobile-menu-panel-inner {
+    padding: 10px;
+}
+
+
+/* =====================================================
+   NORMAL MENU ITEMS
+===================================================== */
+
+.mobile-menu-panel-inner a {
+    color: #202235;
+    border-radius: 10px;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+/* Hover */
+.mobile-menu-panel-inner a:hover {
+    background: #f3f4fb;
+    color: #2E3192;
+}
+
+
+/* Click / active */
+.mobile-menu-panel-inner a:active {
+    background: #e9ebfa;
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   DROPDOWN BUTTON
+===================================================== */
+
+.mobile-menu-dropdown-toggle {
+    color: #202235;
+    border-radius: 10px;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+/* Hover */
+.mobile-menu-dropdown-toggle:hover {
+    background: #f3f4fb;
+    color: #2E3192;
+}
+
+
+/* Open dropdown */
+.mobile-menu-dropdown-toggle.dropdown-open {
+    background: #eef0ff;
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   ARROW
+===================================================== */
+
+.mobile-menu-chevron {
+    color: #55586b;
+}
+
+.mobile-menu-dropdown-toggle:hover .mobile-menu-chevron {
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   SUBMENU
+===================================================== */
+
+.mobile-menu-submenu {
+    border-left: 2px solid #e8eaff;
+}
+
+
+/* Submenu links */
+.mobile-menu-submenu a {
+    color: #55586b;
+    border-radius: 8px;
+}
+
+
+/* Submenu hover */
+.mobile-menu-submenu a:hover {
+    background: #f5f6fb;
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   CALL BUTTON
+===================================================== */
+
+.mobile-menu-panel-inner .mobile-menu-call {
+    background: #2E3192;
+    color: #ffffff;
+
+    border-radius: 10px;
+
+    box-shadow: 0 5px 14px rgba(46, 49, 146, 0.18);
+
+    transition:
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* Call button hover */
+.mobile-menu-panel-inner .mobile-menu-call:hover {
+    background: #25277d;
+    color: #ffffff;
+
+    box-shadow: 0 7px 18px rgba(46, 49, 146, 0.25);
+}
+
+
+/* =====================================================
+   MENU ICON HOVER
+===================================================== */
+
+.mobile-menu-toggle:hover {
+    background: #f3f4fb;
+    border-radius: 12px;
+}
+
+
+/* Keep icon change instant */
+.mobile-menu-toggle,
+.mobile-menu-toggle span,
+.mobile-menu-toggle.menu-open,
+.mobile-menu-toggle.menu-open span {
+    transition: none !important;
+}
+
+/* =========================================================
+   MOBILE ONLY (≤767px) — everything else
+========================================================= */
+
+@media (max-width: 767px) {
+
+    /* =====================================================
+       MOBILE HERO
+    ===================================================== */
+
+    .hero-section {
+        width: 100%;
+        position: relative;
+    }
+
+    .hero-bg {
+        width: calc(100% - 20px);
+    background-image: url('{{ asset('images/Scroll Banner 1200x500.jpg') }}');
+
+        min-height: 0;
+
+        aspect-ratio: auto;
+
+        margin: 0 auto;
+
+        border-radius: 18px;
+
+        background-position: center center;
+
+        overflow: hidden;
+    }
+
+    .hero-content {
+        width: 100%;
+        max-width: none;
+
+        display: flex;
+        flex-direction: column;
+
+        gap: 10px;
+
+        padding: 28px 15px 32px;
+
+        text-align: center;
+    }
+
+    .hero-text {
+        width: 100%;
+
+        padding: 0;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-title {
+        width: 100%;
+        max-width: 340px;
+
+        margin: 0 auto 12px;
+
+        font-size: 28px !important;
+        line-height: 1.08;
+
+        font-weight: 600;
+
+        text-align: center;
+    }
+
+    .hero-subtitle {
+        width: 100%;
+        max-width: 330px;
+
+        margin: 0 auto 12px;
+
+        color: #e5e7eb;
+
+        font-size: 13px;
+        line-height: 1.45;
+
+        text-align: center;
+    }
+
+    .hero-trust {
+        width: 100%;
+        max-width: 320px;
+
+        margin: 0 auto;
+
+        color: #e5e7eb;
+
+        font-size: 12px;
+        line-height: 1.4;
+
+        text-align: center;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE HERO GRAPHIC
+    ----------------------------------------------------- */
+
+    .hero-graphic {
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin: 5px auto 0;
+    }
+
+    .hero-graphic-img {
+        display: block;
+
+        width: 88%;
+        max-width: 310px;
+
+        margin: 0 auto;
+
+        object-fit: contain;
+    }
+
+
+    /* =====================================================
+       MOBILE BOTTOM NAV
+    ===================================================== */
+
+    .mobile-bottom-nav {
+        display: flex;
+
+        position: fixed;
+
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+
+        height: 58px;
+
+        z-index: 999999;
+
+        background: rgba(255, 255, 255, 0.96);
+
+        border-radius: 18px;
+
+        box-shadow:
+            0 4px 20px rgba(0, 0, 0, 0.15);
+
+        border: 1px solid #e5e7eb;
+
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+
+        align-items: stretch;
+        justify-content: space-around;
+
+        padding: 4px 3px;
+    }
+
+    .mobile-bottom-item {
+        flex: 1;
+
+        min-width: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 2px;
+
+        color: #1f2937;
+
+        text-decoration: none;
+
+        font-size: 9px;
+        font-weight: 500;
+
+        line-height: 1;
+
+        border-radius: 13px;
+
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .mobile-bottom-item.active {
+        color: #2E3192;
+        font-weight: 600;
+    }
+
+    .mobile-bottom-icon {
+        width: 23px;
+        height: 23px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-bottom-icon svg {
+        width: 21px;
+        height: 21px;
+        display: block;
+    }
+
+
+    /* -----------------------------------------------------
+       PREVENT CONTENT FROM HIDING BEHIND BOTTOM NAV
+    ----------------------------------------------------- */
+
+    body {
+        padding-bottom: 76px;
+    }
+/* =========================================================
+
+   BANKING SOLUTIONS — PHONE VIEW ONLY
+
+   Header + Hero CSS NOT INCLUDED
+
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    /* -----------------------------------------------------
+
+       GLOBAL CONTAINER
+
+    ----------------------------------------------------- */
+
+    .bnk-container {
+
+        width: calc(100% - 30px);
+
+        max-width: 100%;
+
+        margin: 0 auto;
+
+    }
+
+    /* -----------------------------------------------------
+
+       SECTION HEADINGS
+
+    ----------------------------------------------------- */
+
+    .nag-section-heading {
+
+        text-align: center;
+
+        margin-bottom: 24px;
+
+        padding: 0 5px;
+
+    }
+
+    .nag-section-heading h2 {
+
+        font-size: 27px;
+
+        line-height: 1.15;
+
+        margin: 0 0 8px;
+
+    }
+
+    .nag-section-heading p {
+
+        font-size: 13px;
+
+        line-height: 1.45;
+
+        margin: 0;
+
+    }
+
+    /* =====================================================
+
+       REVENUE LEAKAGE INTRO
+
+       ===================================================== */
+
+    .bnk-intro-section {
+
+        padding: 38px 0 35px;
+
+        background: #fff;
+
+    }
+
+    .bnk-intro-card {
+
+        display: flex;
+
+        flex-direction: column;
+
+        width: 100%;
+
+        border-radius: 14px;
+
+        overflow: hidden;
+
+    }
+
+    .bnk-intro-image {
+
+        width: 100%;
+
+        padding: 0;
+
+        background: #f7f8fb;
+
+    }
+
+    .bnk-intro-image img {
+
+        display: block;
+
+        width: 100%;
+
+        height: 210px;
+
+        object-fit: cover;
+
+    }
+
+    .bnk-intro-content {
+
+        padding: 22px 18px 24px;
+
+    }
+
+    .bnk-intro-content h3 {
+
+        font-size: 21px;
+
+        line-height: 1.25;
+
+        margin: 0 0 12px;
+
+    }
+
+    .bnk-intro-content p {
+
+        font-size: 14px;
+
+        line-height: 1.65;
+
+        margin: 0 0 13px;
+
+        color: #555;
+
+    }
+
+    .bnk-intro-content p:last-child {
+
+        margin-bottom: 0;
+
+    }
+
+    /* =====================================================
+
+       PLATFORM HIGHLIGHTS
+
+       ===================================================== */
+
+    .bnk-highlights-section {
+
+        padding: 38px 0;
+
+        background: #fff;
+
+    }
+
+    .bnk-highlights-grid {
+
+        display: grid;
+
+        grid-template-columns: 1fr;
+
+        gap: 13px;
+
+    }
+
+    .bnk-highlight-card {
+
+        width: 100%;
+
+        padding: 22px 18px;
+
+        border-radius: 13px;
+
+        text-align: center;
+
+    }
+
+    .bnk-highlight-icon {
+
+        width: 56px;
+
+        height: 56px;
+
+        margin: 0 auto 13px;
+
+        border-radius: 50%;
+
+    }
+
+    .bnk-highlight-icon img {
+
+        width: 30px;
+
+        height: 30px;
+
+        object-fit: contain;
+
+    }
+
+    .bnk-highlight-card h3 {
+
+        font-size: 17px;
+
+        line-height: 1.3;
+
+        margin: 0 0 9px;
+
+    }
+
+    .bnk-highlight-card p {
+
+        font-size: 13.5px;
+
+        line-height: 1.6;
+
+        margin: 0;
+
+    }
+
+    /* =====================================================
+
+       KEY OUTCOMES
+
+       ===================================================== */
+
+    .bnk-outcomes-section {
+
+        padding: 38px 0;
+
+        background: #f4f5fa;
+
+    }
+
+    .bnk-outcomes-list {
+
+        width: 100%;
+
+        max-width: none;
+
+        margin: 0;
+
+        gap: 13px;
+
+    }
+
+    .bnk-outcome-item {
+
+        width: 100%;
+
+        font-size: 14px;
+
+        line-height: 1.55;
+
+        gap: 9px;
+
+        align-items: flex-start;
+
+    }
+
+    .bnk-outcome-item span {
+
+        font-size: 15px;
+
+        line-height: 1.5;
+
+    }
+
+    /* =====================================================
+
+       OUR IMPACT
+
+       ===================================================== */
+
+    .bnk-impact-section {
+
+        padding: 42px 0;
+
+        background: #fff;
+
+    }
+
+    .bnk-impact-grid {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 28px;
+
+        margin-bottom: 25px;
+
+    }
+
+    .bnk-impact-content h2 {
+
+        font-size: 28px;
+
+        line-height: 1.15;
+
+        margin: 0 0 5px;
+
+    }
+
+    .bnk-impact-subtitle {
+
+        font-size: 13px;
+
+        line-height: 1.45;
+
+        margin: 0 0 15px;
+
+    }
+
+    .bnk-impact-content p {
+
+        font-size: 14px;
+
+        line-height: 1.65;
+
+        margin-bottom: 12px;
+
+    }
+
+    .bnk-impact-content p:last-child {
+
+        margin-bottom: 0;
+
+    }
+
+    /* -----------------------------------------------------
+
+       IMPACT POINTS
+
+       ----------------------------------------------------- */
+
+    .bnk-impact-points {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 15px;
+
+    }
+
+    .bnk-impact-point {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+    }
+
+    .bnk-impact-icon {
+
+        width: 43px;
+
+        height: 43px;
+
+        min-width: 43px;
+
+        border-radius: 50%;
+
+    }
+
+    .bnk-impact-icon img {
+
+        width: 24px;
+
+        height: 24px;
+
+        object-fit: contain;
+
+    }
+
+    .bnk-impact-point p {
+
+        font-size: 13.5px;
+
+        line-height: 1.5;
+
+        margin: 0;
+
+    }
+
+    /* -----------------------------------------------------
+
+       IMPACT NOTE
+
+       ----------------------------------------------------- */
+
+    .bnk-impact-note {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        padding: 17px 16px;
+
+        border-radius: 13px;
+
+        text-align: left;
+
+    }
+
+    .bnk-impact-note .iconbox {
+
+        width: 42px;
+
+        min-width: 42px;
+
+        height: 42px;
+
+    }
+
+    .bnk-impact-note .iconbox img {
+
+        width: 23px;
+
+        height: 23px;
+
+        object-fit: contain;
+
+    }
+
+    .bnk-impact-note p {
+
+        margin: 0 !important;
+
+        font-size: 12.5px;
+
+        line-height: 1.55;
+
+        color: #555;
+
+    }
+
+  /* =========================================================
+
+   MOBILE CTA — HORIZONTAL LAYOUT
+
+   Reference: text LEFT + image RIGHT
+
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .services-bottom-cta {
+
+        margin-top: 25px;
+
+        padding: 20px 0 90px;
+
+        background: #fff;
+
+    }
+
+    .services-bottom-cta-inner {
+
+        width: calc(100% - 24px);
+
+        min-height: 135px;
+
+        margin: 0 auto;
+
+        display: flex;
+
+        flex-direction: row;
+
+        align-items: stretch;
+
+        justify-content: space-between;
+
+        position: relative;
+
+        overflow: hidden;
+
+        border-radius: 17px;
+
+        background: linear-gradient(
+
+            90deg,
+
+            #2E3192 0%,
+
+            #2E3192 55%,
+
+            rgba(46,49,146,0.65) 78%,
+
+            rgba(46,49,146,0.15) 100%
+
+        );
+
+    }
+
+    /* =====================================================
+
+       LEFT SIDE — CONTENT
+
+    ===================================================== */
+
+    .services-cta-content {
+
+        width: 62%;
+
+        max-width: none;
+
+        padding: 22px 0 20px 18px;
+
+        position: relative;
+
+        z-index: 3;
+
+        text-align: left;
+
+    }
+
+    .services-cta-content h2 {
+
+        margin: 0 0 8px;
+
+        font-family: "Inter Tight", sans-serif;
+
+        font-size: 18px;
+
+        line-height: 1.15;
+
+        font-weight: 700;
+
+        color: #fff;
+
+    }
+
+    .services-cta-content h2 span {
+
+        color: #fff;
+
+    }
+
+    .services-cta-content p {
+
+        margin: 0 0 13px;
+
+        font-size: 10px;
+
+        line-height: 1.35;
+
+        color: #e5e7eb;
+
+    }
+
+    .services-cta-btn {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 5px;
+
+        padding: 7px 13px;
+
+        border-radius: 999px;
+
+        background: #fff;
+
+        color: #111;
+
+        font-size: 10px;
+
+        line-height: 1;
+
+        font-weight: 600;
+
+        text-decoration: none;
+
+    }
+
+    .services-cta-btn span {
+
+        font-size: 13px;
+
+    }
+
+    /* =====================================================
+
+       RIGHT SIDE — IMAGE
+
+    ===================================================== */
+
+    .services-cta-image {
+
+        width: 43%;
+
+        height: 100%;
+
+        margin: 0;
+
+        display: flex;
+
+        align-items: flex-end;
+
+        justify-content: flex-end;
+
+        position: absolute;
+
+        right: 0;
+
+        bottom: 0;
+
+        z-index: 2;
+
+    }
+
+    .services-cta-image img {
+
+        width: 100%;
+
+        max-width: none;
+
+        height: auto;
+
+        max-height: 180px;
+
+        object-fit: contain;
+
+        object-position: bottom right;
+
+        display: block;
+
+    }
+
+}
+
+    /* =====================================================
+
+       SMALL PHONE — 360px AND BELOW
+
+       ===================================================== */
+
+    @media (max-width: 380px) {
+
+        .bnk-container {
+
+            width: calc(100% - 24px);
+
+        }
+
+        .nag-section-heading h2 {
+
+            font-size: 24px;
+
+        }
+
+        .nag-section-heading p {
+
+            font-size: 12px;
+
+        }
+
+        .bnk-intro-content {
+
+            padding: 19px 15px 21px;
+
+        }
+
+        .bnk-intro-content h3 {
+
+            font-size: 19px;
+
+        }
+
+        .bnk-intro-content p {
+
+            font-size: 13px;
+
+        }
+
+        .bnk-highlight-card {
+
+            padding: 19px 15px;
+
+        }
+
+        .bnk-highlight-card h3 {
+
+            font-size: 16px;
+
+        }
+
+        .bnk-highlight-card p {
+
+            font-size: 13px;
+
+        }
+
+        .bnk-outcome-item {
+
+            font-size: 13px;
+
+        }
+
+        .bnk-impact-content h2 {
+
+            font-size: 25px;
+
+        }
+
+        .bnk-impact-point p {
+
+            font-size: 13px;
+
+        }
+
+        .services-cta-content {
+
+            padding: 24px 18px 18px;
+
+        }
+
+        .services-cta-content h2 {
+
+            font-size: 22px;
+
+        }
+
+        .services-cta-content p {
+
+            font-size: 12px;
+
+        }
+
+        .services-cta-image {
+
+            width: 80%;
+
+        }
+
+    }
+
+}
 </style>
 
 @endsection

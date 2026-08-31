@@ -3,12 +3,195 @@
 
 @section('content')
 
+<div
+    class="mobile-site-header"
+    x-data="{ mobileMenuOpen: false }"
+>
+    <div class="mobile-site-header-inner">
+ 
+        <a href="{{ route('home') }}" class="mobile-site-logo">
+            <img src="{{ asset('images/logo.svg') }}" alt="ASCENTech">
+        </a>
+ 
+       <button
+    type="button"
+    class="mobile-menu-toggle"
+    @click="mobileMenuOpen = !mobileMenuOpen"
+    :class="{ 'menu-open': mobileMenuOpen }"
+    :aria-label="mobileMenuOpen ? 'Close Menu' : 'Open Menu'"
+>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+ 
+    </div>
+ 
+    {{-- MOBILE MENU --}}
+    <div
+        class="mobile-menu-panel"
+        x-show="mobileMenuOpen"
+        x-cloak
+        x-data="{ productsOpen: false, insightsOpen: false }"
+    >
+        <div class="mobile-menu-panel-inner">
+ 
+            <a
+                href="{{ route('home') }}"
+                class="mobile-menu-link {{ request()->routeIs('home') ? 'mobile-menu-active' : '' }}"
+            >
+                Home
+            </a>
+ 
+            <a
+                href="{{ route('about') }}"
+                class="mobile-menu-link {{ request()->routeIs('about') ? 'mobile-menu-active' : '' }}"
+            >
+                About Us
+            </a>
+ 
+            <div class="mobile-menu-dropdown">
+                <button
+                    type="button"
+                    class="mobile-menu-link mobile-menu-dropdown-toggle"
+@click="productsOpen = !productsOpen; insightsOpen = false"                >
+                    <span>Products</span>
+                    <svg
+                        class="mobile-menu-chevron"
+                        :class="{ 'mobile-menu-chevron-open': productsOpen }"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="mobile-menu-submenu" x-show="productsOpen" x-collapse x-cloak>
+                    <a href="{{ route('products.nagarkaryavali') }}">Nagarkaryavali</a>
+                    <a href="{{ route('products.banking') }}">Banking Solutions</a>
+                </div>
+            </div>
+ 
+            <a
+                href="{{ route('services') }}"
+                class="mobile-menu-link {{ request()->routeIs('services') ? 'mobile-menu-active' : '' }}"
+            >
+                Services
+            </a>
+ 
+            <div class="mobile-menu-dropdown">
+                <button
+                    type="button"
+                    class="mobile-menu-link mobile-menu-dropdown-toggle"
+@click="insightsOpen = !insightsOpen; productsOpen = false"                >
+                    <span>Insights</span>
+                    <svg
+                        class="mobile-menu-chevron"
+                        :class="{ 'mobile-menu-chevron-open': insightsOpen }"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="mobile-menu-submenu" x-show="insightsOpen" x-collapse x-cloak>
+                    <a href="{{ route('awards') }}">Award and Certification</a>
+                    <a href="{{ route('events') }}">Events</a>
+                    <a href="{{ route('news') }}">News &amp; Media</a>
+                </div>
+            </div>
+ 
+            <a
+                href="{{ route('careers') }}"
+                class="mobile-menu-link {{ request()->routeIs('careers') ? 'mobile-menu-active' : '' }}"
+            >
+                Careers
+            </a>
+ 
+            <a
+                href="{{ route('contact') }}"
+                class="mobile-menu-link {{ request()->routeIs('contact') ? 'mobile-menu-active' : '' }}"
+            >
+                Contact Us
+            </a>
+ 
+        </div>
+    </div>
+</div>
+<nav class="mobile-bottom-nav">
+
+    <a href="{{ route('home') }}" class="mobile-bottom-item active">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-house"></i>
+        </span>
+        <span>Home</span>
+    </a>
+
+    <a href="{{ route('about') }}" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-building"></i>
+        </span>
+        <span>About Us</span>
+    </a>
+
+    <a href="{{ route('products.nagarkaryavali') }}" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-display"></i>
+        </span>
+        <span>Products</span>
+    </a>
+
+    <a href="{{ route('services') }}" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-gear"></i>
+        </span>
+        <span>Services</span>
+    </a>
+
+    <a href="tel:+918657953083" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-phone"></i>
+        </span>
+        <span>Call Us</span>
+    </a>
+
+    <a href="https://wa.me/918657953083"
+       class="mobile-bottom-item"
+       target="_blank"
+       rel="noopener">
+
+        <span class="mobile-bottom-icon">
+            <i class="fa-brands fa-whatsapp"></i>
+        </span>
+
+        <span>WhatsApp</span>
+    </a>
+
+</nav>
+
 {{-- HERO --}}
-<section class="hero-section" x-data="{ scrolled: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 500 })">
+
+<section
+    class="hero-section"
+    x-data="{ scrolled: false }"
+    x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 500 })"
+>
 
     <div class="hero-bg">
-        @include('partials.header')
 
+        {{-- DESKTOP HEADER ONLY --}}
+        <div class="desktop-hero-header">
+            @include('partials.header')
+        </div>
         <div class="hero-content">
             <div class="hero-text">
                 <h1 class="hero-title">Urban Corporations To
@@ -18,8 +201,12 @@ We Are There</h1>
 <br>
 Trusted by over 16+ Municipal Corporations</p>
             </div>
+            <div class="hero-graphic">
+                <img src="{{ asset('images/graphic-1000x1000-4.webp') }}" alt="" class="hero-graphic-img">
+            </div>
         </div>
     </div>
+    
     {{-- Floating nav + CTA row --}}
 <div class="hero-float-row" x-show="!scrolled" x-transition.opacity>
         <div class="hero-float-inner">
@@ -149,7 +336,7 @@ Trusted by over 16+ Municipal Corporations</p>
             >
         </div>
 
-        <div class="about-tech-image">
+        <div class="about-tech-image tech-image-small">
             <img
                 src="{{ asset('images/about/Future Of Software Development image 3 - 500x300 (1).jpg') }}"
                 alt="ASCENTech Technology Team"
@@ -232,34 +419,19 @@ Trusted by over 16+ Municipal Corporations</p>
 
     </div>
 
-
-    {{-- =====================================================
-         COMPANY STATS
-    ====================================================== --}}
-    <div class="about-stats">
-
-        <div class="about-stat">
-            <strong>3M+</strong>
-            <span>Property Services Handled Last Year</span>
+{{-- STATS --}}
+<section class="stats-section">
+    <div class="stats-wrap">
+        <div class="stats-grid">
+            @foreach ($stats as $stat)
+                <div class="stat-item">
+                    <div class="stat-value">{{ $stat['value'] }}{{ $stat['suffix'] }}</div>
+                    <div class="stat-label">{{ $stat['label'] }}</div>
+                </div>
+            @endforeach
         </div>
-
-        <div class="about-stat">
-            <strong>16+</strong>
-            <span>Municipal Corporations</span>
-        </div>
-
-        <div class="about-stat">
-            <strong>30+</strong>
-            <span>Software Modules</span>
-        </div>
-
-        <div class="about-stat">
-            <strong>175+</strong>
-            <span>Skilled Employees</span>
-        </div>
-
     </div>
-
+</section>
 
     {{-- =====================================================
          LEADERSHIP
@@ -1042,7 +1214,6 @@ Trusted by over 16+ Municipal Corporations</p>
     width: calc(100% + 45px);
 }
 
-
 /* =========================================================
    SECTION HEADINGS
 ========================================================= */
@@ -1128,51 +1299,114 @@ Trusted by over 16+ Municipal Corporations</p>
     color: #555;
 }
 
+/* ===================== STATS ===================== */
 
-/* =========================================================
-   STATS
-========================================================= */
-
-.about-stats {
-    width: min(1200px, 100%);
-    margin: 0 auto 34px;
-    min-height: 134px;
-    border-radius: 17px;
+.stats-section {
+    background: #f9fafb;
+    background-image: url('{{ asset('images/Scroll Banner 1200x500.jpg') }}');
+    background-size: cover;
+    background-position: center center;
+    aspect-ratio: 1000 / 150;
+    border-radius: 30px;
+    margin: 15px 120px;
+    color: #fff;
+    position: relative;
     overflow: hidden;
+}
+@media (max-width: 1023px) {
+    .stats-section {
+        margin: 15px 40px;
+    }
+}
+
+.stats-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    background: #071a42;
+    height: 100%;
+    min-height: 100%;
+    padding: 0 24px;
+    text-align: center;
 }
 
-.about-stat {
+/* Full-height dividers */
+.stats-grid .stat-item {
+    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    text-align: center;
-    padding: 10px;
-    border-right: 1px solid rgba(255,255,255,.7);
+    align-items: center;
 }
 
-.about-stat:last-child {
-    border-right: 0;
+.stats-grid .stat-item:nth-child(-n+3)::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px;
+    background: #fff;
 }
 
-.about-stat strong {
-    color: #fff;
-    font-size: 41px;
-    line-height: 1;
+/* Stat content */
+.stat-value {
+    font-size: 56px;
     font-weight: 700;
-    margin-bottom: 6px;
+    color: #d9daec;
 }
 
-.about-stat span {
-    color: #fff;
+.stat-label {
+    color: #eff0f4;
+    margin-top: 0;
     font-size: 16px;
-    line-height: 1.25;
 }
 
+/* Mobile */
+@media (max-width: 767px) {
 
+    .stats-section {
+        margin: 15px 20px;
+        aspect-ratio: auto;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 30px 10px;
+    }
+
+    /* Remove desktop dividers */
+    .stats-grid .stat-item:nth-child(-n+3)::after {
+        display: none;
+    }
+
+    /* Vertical divider between columns */
+    .stats-grid .stat-item:nth-child(odd)::after {
+        display: block;
+        top: 0;
+        bottom: 0;
+        right: 0;
+    }
+
+    /* Horizontal divider between rows (was missing) */
+    .stats-grid .stat-item:nth-child(-n+2) {
+        border-bottom: 1px solid #fff;
+        padding-bottom: 16px;
+    }
+    .stats-grid .stat-item:nth-child(n+3) {
+        padding-top: 16px;
+    }
+
+    .stat-value {
+        font-size: 40px;
+    }
+}
+.stats-certs { display: flex; flex-wrap: wrap; margin-top:70px;justify-content: center; align-items: center; gap: 100px; opacity: 1; }
+.stats-cert-img { height: 120px; object-fit: contain; }
 /* =========================================================
    LEADERSHIP
 ========================================================= */
@@ -1374,28 +1608,39 @@ Trusted by over 16+ Municipal Corporations</p>
     margin-bottom: -50px;
 }
 
-.certifications {
-    display: flex;
-    
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-}
+@media (max-width: 767px) {
 
-.certificate {
-    width: 62px;
-    height: 62px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    .stats-section {
+        margin: 15px 0px;
+        border-radius: 20px;
+    }
 
-.certificate img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 20px 8px;
+        min-height: 210px;
+    }
 
+    .stat-value {
+        font-size: 34px;
+    }
+
+    .stat-label {
+        font-size: 10px;
+        line-height: 1.3;
+    }
+
+    .stats-certs {
+        margin-top: 35px;
+        gap: 25px;
+        padding: 0 15px;
+    }
+
+    .stats-cert-img {
+        height: 65px;
+        max-width: 120px;
+    }
+}
 
 /* =========================================================
    ASSOCIATIONS / EMPANELMENTS
@@ -1447,144 +1692,1934 @@ Trusted by over 16+ Municipal Corporations</p>
     object-fit: contain;
 }
 
-
 /* =========================================================
-   TABLET
+   MOBILE HEADER + MOBILE NAV
+   DOES NOT CHANGE DESKTOP
 ========================================================= */
 
-@media (max-width: 900px) {
+/* Hidden by default */
+.mobile-site-header,
+.mobile-bottom-nav {
+    display: none;
+}
+
+
+/* =========================================================
+   NAV SWAP — PHONE + TABLET
+   Extended from 767px to 1023px so tablet-width screens
+   (768–1023px) also get a working navigation menu, since
+   the desktop float/sticky nav only appears at ≥1024px.
+========================================================= */
+/* Hide hero graphic on desktop and tablet */
+.hero-graphic {
+    display: none;
+}
+
+/* Show hero graphic only on mobile */
+@media (max-width: 600px) {
+    .hero-graphic {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 25px;
+    }
+
+    .hero-graphic-img {
+        display: block;
+        width: 75%;
+        max-width: 280px;
+        height: auto;
+        margin: 0 auto;
+    }
+}
+@media (max-width: 1023px) {
+
+    /* -----------------------------------------------------
+       REMOVE DESKTOP HEADER ELEMENTS ON MOBILE/TABLET
+    ----------------------------------------------------- */
+
+    .desktop-hero-header {
+        display: none !important;
+    }
+
+    .hero-float-row {
+        display: none !important;
+    }
+
+    .hero-sticky-bar {
+        display: none !important;
+    }
+
+    /* -----------------------------------------------------
+       MOBILE/TABLET TOP HEADER
+    ----------------------------------------------------- */
+
+    .mobile-site-header {
+        display: block;
+        position: sticky;
+        top: 8px;
+        z-index: 999999;
+        width: calc(100% - 20px);
+        margin: 8px auto 10px;
+    }
+
+    .mobile-site-header-inner {
+        width: 100%;
+        height: 58px;
+        background: #fff;
+        border: 1px solid #e7e7e7;
+        border-radius: 17px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 13px;
+    }
+
+    .mobile-site-logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .mobile-site-logo img {
+        display: block;
+        width: auto;
+        height: 34px;
+        max-width: 145px;
+        object-fit: contain;
+    }
+.mobile-menu-toggle {
+    width: 50px;
+    height: 50px;
+    border: 0;
+    background: transparent;
+
+    display: grid;
+    grid-template-columns: repeat(3, 5px);
+    grid-template-rows: repeat(3, 5px);
+    gap: 4px;
+
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.mobile-menu-toggle span {
+    display: block;
+    width: 5px;
+    height: 5px;
+    background: #2E3192;
+    border-radius: 50%;
+}
+
+/* OPEN — instantly become X */
+.mobile-menu-toggle.menu-open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu-toggle.menu-open span {
+    position: absolute;
+    width: 24px;
+    height: 3px;
+    border-radius: 3px;
+    background: #2E3192;
+}
+
+/* X */
+.mobile-menu-toggle.menu-open span:nth-child(1) {
+    transform: rotate(45deg);
+}
+
+.mobile-menu-toggle.menu-open span:nth-child(2) {
+    transform: rotate(-45deg);
+}
+
+/* Hide remaining dots */
+.mobile-menu-toggle.menu-open span:nth-child(n+3) {
+    display: none;
+}
+   /* -----------------------------------------------------
+   MOBILE DROPDOWN MENU
+----------------------------------------------------- */
+
+.mobile-menu-panel {
+    margin-top: 7px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+}
+
+.mobile-menu-panel-inner {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+}
+
+/* Main menu items */
+.mobile-menu-panel-inner a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 100%;
+    min-height: 46px;
+
+    padding: 11px 14px;
+
+    color: #111827;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    text-align: left;
+}
+
+/* Dropdown buttons - same alignment as links */
+.mobile-menu-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 14px;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    color: #111827;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+}
+
+.mobile-menu-dropdown-toggle > span {
+    flex: 1;
+    text-align: left;
+}
+
+.mobile-menu-chevron {
+    width: 18px;
+    height: 18px;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+/* Submenu alignment */
+.mobile-menu-submenu {
+    padding-left: 10px;
+}
+
+.mobile-menu-submenu a {
+    padding-left: 14px;
+    min-height: 42px;
+    text-align: left;
+}
+
+/* Pressed state */
+.mobile-menu-panel-inner a:active {
+    background: #f3f4f8;
+}
+
+/* Call button - keep centered */
+.mobile-menu-panel-inner .mobile-menu-call {
+    background: #2E3192;
+    color: #fff;
+    text-align: center;
+    justify-content: center;
+    margin-top: 5px;
+}
+}
+/* =====================================================
+   MENU VISUAL STYLING ONLY
+   Does NOT change menu functionality
+===================================================== */
+
+/* Main menu box */
+.mobile-menu-panel {
+    background: #ffffff;
+    border: 1px solid #e6e7ef;
+    border-radius: 18px;
+    box-shadow: 0 10px 28px rgba(30, 32, 80, 0.12);
+}
+
+
+/* Menu spacing */
+.mobile-menu-panel-inner {
+    padding: 10px;
+}
+
+
+/* =====================================================
+   NORMAL MENU ITEMS
+===================================================== */
+
+.mobile-menu-panel-inner a {
+    color: #202235;
+    border-radius: 10px;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+/* Hover */
+.mobile-menu-panel-inner a:hover {
+    background: #f3f4fb;
+    color: #2E3192;
+}
+
+
+/* Click / active */
+.mobile-menu-panel-inner a:active {
+    background: #e9ebfa;
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   DROPDOWN BUTTON
+===================================================== */
+
+.mobile-menu-dropdown-toggle {
+    color: #202235;
+    border-radius: 10px;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+/* Hover */
+.mobile-menu-dropdown-toggle:hover {
+    background: #f3f4fb;
+    color: #2E3192;
+}
+
+
+/* Open dropdown */
+.mobile-menu-dropdown-toggle.dropdown-open {
+    background: #eef0ff;
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   ARROW
+===================================================== */
+
+.mobile-menu-chevron {
+    color: #55586b;
+}
+
+.mobile-menu-dropdown-toggle:hover .mobile-menu-chevron {
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   SUBMENU
+===================================================== */
+
+.mobile-menu-submenu {
+    border-left: 2px solid #e8eaff;
+}
+
+
+/* Submenu links */
+.mobile-menu-submenu a {
+    color: #55586b;
+    border-radius: 8px;
+}
+
+
+/* Submenu hover */
+.mobile-menu-submenu a:hover {
+    background: #f5f6fb;
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   CALL BUTTON
+===================================================== */
+
+.mobile-menu-panel-inner .mobile-menu-call {
+    background: #2E3192;
+    color: #ffffff;
+
+    border-radius: 10px;
+
+    box-shadow: 0 5px 14px rgba(46, 49, 146, 0.18);
+
+    transition:
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* Call button hover */
+.mobile-menu-panel-inner .mobile-menu-call:hover {
+    background: #25277d;
+    color: #ffffff;
+
+    box-shadow: 0 7px 18px rgba(46, 49, 146, 0.25);
+}
+
+
+/* =====================================================
+   MENU ICON HOVER
+===================================================== */
+
+.mobile-menu-toggle:hover {
+    background: #f3f4fb;
+    border-radius: 12px;
+}
+
+
+/* Keep icon change instant */
+.mobile-menu-toggle,
+.mobile-menu-toggle span,
+.mobile-menu-toggle.menu-open,
+.mobile-menu-toggle.menu-open span {
+    transition: none !important;
+}
+
+/* =========================================================
+   MOBILE ONLY (≤767px) — everything else
+========================================================= */
+
+@media (max-width: 767px) {
+
+    /* =====================================================
+       MOBILE HERO
+    ===================================================== */
+
+    .hero-section {
+        width: 100%;
+        position: relative;
+    }
+
+    .hero-bg {
+        width: calc(100% - 20px);
+    background-image: url('{{ asset('images/Scroll Banner 1200x500.jpg') }}');
+
+        min-height: 0;
+
+        aspect-ratio: auto;
+
+        margin: 0 auto;
+
+        border-radius: 18px;
+
+        background-position: center center;
+
+        overflow: hidden;
+    }
+
+    .hero-content {
+        width: 100%;
+        max-width: none;
+
+        display: flex;
+        flex-direction: column;
+
+        gap: 10px;
+
+        padding: 28px 15px 32px;
+
+        text-align: center;
+    }
+
+    .hero-text {
+        width: 100%;
+
+        padding: 0;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-title {
+        width: 100%;
+        max-width: 340px;
+
+        margin: 0 auto 12px;
+
+        font-size: 28px !important;
+        line-height: 1.08;
+
+        font-weight: 600;
+
+        text-align: center;
+    }
+
+    .hero-subtitle {
+        width: 100%;
+        max-width: 330px;
+
+        margin: 0 auto 12px;
+
+        color: #e5e7eb;
+
+        font-size: 13px;
+        line-height: 1.45;
+
+        text-align: center;
+    }
+
+    .hero-trust {
+        width: 100%;
+        max-width: 320px;
+
+        margin: 0 auto;
+
+        color: #e5e7eb;
+
+        font-size: 12px;
+        line-height: 1.4;
+
+        text-align: center;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE HERO GRAPHIC
+    ----------------------------------------------------- */
+
+    .hero-graphic {
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin: 5px auto 0;
+    }
+
+    .hero-graphic-img {
+        display: block;
+
+        width: 88%;
+        max-width: 310px;
+
+        margin: 0 auto;
+
+        object-fit: contain;
+    }
+
+
+    /* =====================================================
+       MOBILE BOTTOM NAV
+    ===================================================== */
+
+    .mobile-bottom-nav {
+        display: flex;
+
+        position: fixed;
+
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+
+        height: 58px;
+
+        z-index: 999999;
+
+        background: rgba(255, 255, 255, 0.96);
+
+        border-radius: 18px;
+
+        box-shadow:
+            0 4px 20px rgba(0, 0, 0, 0.15);
+
+        border: 1px solid #e5e7eb;
+
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+
+        align-items: stretch;
+        justify-content: space-around;
+
+        padding: 4px 3px;
+    }
+
+    .mobile-bottom-item {
+        flex: 1;
+
+        min-width: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 2px;
+
+        color: #1f2937;
+
+        text-decoration: none;
+
+        font-size: 9px;
+        font-weight: 500;
+
+        line-height: 1;
+
+        border-radius: 13px;
+
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .mobile-bottom-item.active {
+        color: #2E3192;
+        font-weight: 600;
+    }
+
+    .mobile-bottom-icon {
+        width: 23px;
+        height: 23px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-bottom-icon svg {
+        width: 21px;
+        height: 21px;
+        display: block;
+    }
+
+
+    /* -----------------------------------------------------
+       PREVENT CONTENT FROM HIDING BEHIND BOTTOM NAV
+    ----------------------------------------------------- */
+
+    body {
+        padding-bottom: 76px;
+    }
+/* =========================================================
+
+   MOBILE CTA — HORIZONTAL LAYOUT
+
+   Reference: text LEFT + image RIGHT
+
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .services-bottom-cta {
+
+        margin-top: 25px;
+
+        padding: 20px 0 90px;
+
+        background: #fff;
+
+    }
+
+    .services-bottom-cta-inner {
+
+        width: calc(100% - 24px);
+
+        min-height: 135px;
+
+        margin: 0 auto;
+
+        display: flex;
+
+        flex-direction: row;
+
+        align-items: stretch;
+
+        justify-content: space-between;
+
+        position: relative;
+
+        overflow: hidden;
+
+        border-radius: 17px;
+
+        background: linear-gradient(
+
+            90deg,
+
+            #2E3192 0%,
+
+            #2E3192 55%,
+
+            rgba(46,49,146,0.65) 78%,
+
+            rgba(46,49,146,0.15) 100%
+
+        );
+
+    }
+
+    /* =====================================================
+
+       LEFT SIDE — CONTENT
+
+    ===================================================== */
+
+    .services-cta-content {
+
+        width: 62%;
+
+        max-width: none;
+
+        padding: 22px 0 20px 18px;
+
+        position: relative;
+
+        z-index: 3;
+
+        text-align: left;
+
+    }
+
+    .services-cta-content h2 {
+
+        margin: 0 0 8px;
+
+        font-family: "Inter Tight", sans-serif;
+
+        font-size: 18px;
+
+        line-height: 1.15;
+
+        font-weight: 700;
+
+        color: #fff;
+
+    }
+
+    .services-cta-content h2 span {
+
+        color: #fff;
+
+    }
+
+    .services-cta-content p {
+
+        margin: 0 0 13px;
+
+        font-size: 10px;
+
+        line-height: 1.35;
+
+        color: #e5e7eb;
+
+    }
+
+    .services-cta-btn {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 5px;
+
+        padding: 7px 13px;
+
+        border-radius: 999px;
+
+        background: #fff;
+
+        color: #111;
+
+        font-size: 10px;
+
+        line-height: 1;
+
+        font-weight: 600;
+
+        text-decoration: none;
+
+    }
+
+    .services-cta-btn span {
+
+        font-size: 13px;
+
+    }
+
+    /* =====================================================
+
+       RIGHT SIDE — IMAGE
+
+    ===================================================== */
+
+    .services-cta-image {
+
+        width: 43%;
+
+        height: 100%;
+
+        margin: 0;
+
+        display: flex;
+
+        align-items: flex-end;
+
+        justify-content: flex-end;
+
+        position: absolute;
+
+        right: 0;
+
+        bottom: 0;
+
+        z-index: 2;
+
+    }
+
+    .services-cta-image img {
+
+        width: 100%;
+
+        max-width: none;
+
+        height: auto;
+
+        max-height: 180px;
+
+        object-fit: contain;
+
+        object-position: bottom right;
+
+        display: block;
+
+    }
+
+}
+/* =========================================================
+   ABOUT US PAGE — RESPONSIVE CSS ONLY
+   EXCLUDES:
+   - Header
+   - Hero
+   - CTA
+========================================================= */
+
+
+/* =========================================================
+   TABLET — 601px TO 1023px
+========================================================= */
+
+@media (min-width: 601px) and (max-width: 1023px) {
 
     .about-company-section {
-        padding-left: 15px;
-        padding-right: 15px;
+        width: 100%;
+        padding: 25px 24px 0;
     }
+
+    /* -----------------------------------------------------
+       COMPANY INTRO
+    ----------------------------------------------------- */
 
     .about-intro-card {
-        grid-template-columns: 1fr;
+        width: 100%;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+        padding: 20px;
+        border-radius: 12px;
     }
 
-    .about-intro-visual {
-        order: -1;
+    .about-intro-content {
+        padding: 0;
+    }
+
+    .about-small-label {
+        font-size: 15px;
+    }
+
+    .about-intro-content h2 {
+        font-size: 30px;
+        line-height: 1.1;
+    }
+
+    .about-intro-content p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .about-intro-list li {
+        font-size: 14px;
+        gap: 8px;
     }
 
     .about-main-image {
-        height: 250px;
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
     }
 
+    .about-client-logos {
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    .about-logo-box {
+        height: 85px;
+    }
+
+    .about-logo-box img {
+        max-height: 70px;
+    }
+
+
+    /* -----------------------------------------------------
+       TECHNOLOGY IMAGES
+    ----------------------------------------------------- */
+
     .about-tech-images {
-        grid-template-columns: 1fr;
+        width: 100%;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        margin: 45px auto 20px;
+    }
+
+    .about-tech-image {
+        height: 260px;
     }
 
     .tech-image-large {
+        height: 290px;
+        width: calc(100% + 25px);
+    }
+
+
+    /* -----------------------------------------------------
+       SECTION HEADINGS
+    ----------------------------------------------------- */
+
+    .about-section-heading {
+        margin: 55px auto 20px;
+    }
+
+    .about-section-heading h2 {
+        font-size: 30px;
+    }
+
+    .about-section-heading p {
+        font-size: 15px;
+    }
+
+
+    /* -----------------------------------------------------
+       TECHNOLOGICAL STRENGTHS
+    ----------------------------------------------------- */
+
+    .technology-strengths {
+        width: 100%;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 35px;
+    }
+
+    .strength-card {
+        min-height: 150px;
+        padding: 15px;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .strength-icon {
+        width: 60px;
+        height: 60px;
+        flex: 0 0 60px;
+    }
+
+    .strength-icon img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .strength-card h3 {
+        font-size: 18px;
+    }
+
+    .strength-card p {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+
+    /* -----------------------------------------------------
+       STATS
+    ----------------------------------------------------- */
+
+    .about-stats {
+        width: 100%;
+        min-height: 140px;
+        grid-template-columns: repeat(4, 1fr);
+        border-radius: 14px;
+    }
+
+    .about-stat {
+        padding: 12px 8px;
+    }
+
+    .about-stat strong {
+        font-size: 30px;
+    }
+
+    .about-stat span {
+        font-size: 13px;
+        line-height: 1.3;
+    }
+
+
+    /* -----------------------------------------------------
+       LEADERSHIP
+    ----------------------------------------------------- */
+
+    .leadership-heading {
+        margin-top: 55px;
+    }
+
+    .leadership-card,
+    .leadership-card-reverse {
+        width: 100%;
+        grid-template-columns: 1fr 240px;
+        gap: 20px;
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .leadership-card-reverse {
+        grid-template-columns: 240px 1fr;
+    }
+
+    .leadership-content {
+        padding: 0;
+    }
+
+    .leadership-content p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .leadership-content h3 {
+        font-size: 21px;
+    }
+
+    .leadership-content > span {
+        font-size: 14px;
+    }
+
+    .leadership-image {
+        height: 240px;
+    }
+
+    .leadership-image img {
+        width: 240px;
+        height: 240px;
+        object-fit: contain;
+    }
+
+
+    /* -----------------------------------------------------
+       MANAGEMENT TEAM
+    ----------------------------------------------------- */
+
+    .management-heading {
+        margin-top: 50px;
+    }
+
+    .management-team {
         width: 100%;
     }
 
-    .technology-strengths {
-        grid-template-columns: 1fr;
+    .management-row {
+        gap: 12px;
     }
 
+    .management-row-bottom {
+        margin-top: 12px;
+    }
+
+    .team-member {
+        width: 240px;
+        height: 240px;
+    }
+
+    .team-member-info {
+        left: 6px;
+        right: 6px;
+        bottom: 6px;
+        min-height: 42px;
+        padding: 5px;
+    }
+
+    .team-member-info strong {
+        font-size: 15px;
+    }
+
+    .team-member-info span {
+        font-size: 13px;
+    }
+
+
+    /* -----------------------------------------------------
+       GUIDING PRINCIPLES
+    ----------------------------------------------------- */
+
+    .principles-heading {
+        margin-top: 55px;
+    }
+
+    .principles-grid {
+        width: 100%;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .principle-card {
+        min-height: 300px;
+        border-radius: 18px;
+    }
+
+    .principle-content {
+        padding: 18px;
+    }
+
+    .principle-content h3 {
+        font-size: 17px;
+    }
+
+    .principle-content p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .principle-card img {
+        height: 140px;
+    }
+
+
+    /* -----------------------------------------------------
+       COMPLIANCE
+    ----------------------------------------------------- */
+
+    .compliance-section {
+        width: calc(100% + 48px);
+        margin-left: -24px;
+        margin-top: 60px;
+        padding: 25px 24px 35px;
+    }
+
+    .compliance-section .about-section-heading {
+        margin-bottom: 25px;
+    }
+
+    .stats-certs {
+        margin-top: 25px;
+        gap: 40px;
+    }
+
+    .stats-cert-img {
+        height: 90px;
+        max-width: 160px;
+    }
+
+
+    /* -----------------------------------------------------
+       ASSOCIATIONS
+    ----------------------------------------------------- */
+
+    .association-section {
+        width: 100%;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-top: 55px;
+    }
+
+    .association-box {
+        min-height: 280px;
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .association-box h2 {
+        font-size: 22px;
+        margin-bottom: 15px;
+    }
+
+    .association-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .association-logo {
+        height: 85px;
+    }
+
+    .association-logo img {
+        max-height: 70px;
+        padding: 7px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE — UP TO 600px
+========================================================= */
+
+@media (max-width: 600px) {
+
+    /* -----------------------------------------------------
+       MAIN ABOUT CONTAINER
+    ----------------------------------------------------- */
+
+    .about-company-section {
+        width: 100%;
+        padding: 15px 12px 0;
+        overflow: hidden;
+    }
+
+
+    /* -----------------------------------------------------
+       COMPANY INTRODUCTION
+    ----------------------------------------------------- */
+
+    .about-intro-card {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        margin: 0 auto 25px;
+        padding: 12px;
+        border-radius: 12px;
+    }
+
+    /*
+       Image comes first on mobile
+    */
+    .about-intro-visual {
+        order: -1;
+        width: 100%;
+    }
+
+    .about-intro-content {
+        width: 100%;
+        padding: 0;
+    }
+
+    .about-small-label {
+        font-size: 13px;
+        padding: 4px 8px;
+        margin-bottom: 8px;
+        border-radius: 4px;
+    }
+
+    .about-intro-content h2 {
+        font-size: 26px !important;
+        line-height: 1.12;
+        margin-bottom: 12px;
+    }
+
+    .about-intro-content p {
+        font-size: 14px;
+        line-height: 1.55;
+        margin-bottom: 10px;
+    }
+
+    .about-intro-list {
+        margin-top: 12px;
+    }
+
+    .about-intro-list li {
+        gap: 8px;
+        margin-bottom: 9px;
+        font-size: 13.5px;
+        line-height: 1.4;
+    }
+
+    .about-intro-list li span {
+        flex: 0 0 auto;
+    }
+
+
+    /* -----------------------------------------------------
+       MAIN INTRO IMAGE
+    ----------------------------------------------------- */
+
+    .about-main-image {
+        width: 100%;
+        height: 215px;
+        border-radius: 9px;
+        object-fit: cover;
+    }
+
+
+    /* -----------------------------------------------------
+       CLIENT LOGOS
+    ----------------------------------------------------- */
+
+    .about-client-logos {
+        width: 100%;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+    .about-logo-box {
+        width: 100%;
+        height: 78px;
+        padding: 6px;
+        border-radius: 6px;
+    }
+
+    .about-logo-box img {
+        max-width: 92%;
+        max-height: 65px;
+    }
+
+
+    /* -----------------------------------------------------
+       TECHNOLOGY IMAGES
+    ----------------------------------------------------- */
+
+    .about-tech-images {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin: 35px auto 15px;
+    }
+
+    .about-tech-image,
+    .tech-image-large {
+        width: 100%;
+        height: 210px;
+        border-radius: 10px;
+        border-width: 4px;
+    }
+
+    .tech-image-large {
+        height: 225px;
+    }
+
+
+    /* -----------------------------------------------------
+       SECTION HEADINGS
+    ----------------------------------------------------- */
+
+    .about-section-heading {
+        width: 100%;
+        margin: 48px auto 18px;
+        padding: 0 5px;
+    }
+
+    .about-section-heading h2 {
+        font-size: 25px !important;
+        line-height: 1.15;
+    }
+
+    .about-section-heading p {
+        font-size: 13px;
+        line-height: 1.4;
+        margin-top: 5px;
+    }
+
+
+    /* -----------------------------------------------------
+       TECHNOLOGICAL STRENGTHS
+    ----------------------------------------------------- */
+
+    .technology-strengths {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 0 auto 30px;
+    }
+
+    .strength-card {
+        width: 100%;
+        min-height: 100px;
+        padding: 12px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 14px;
+        border-radius: 9px;
+    }
+
+    .strength-icon {
+        width: 55px;
+        height: 55px;
+        flex: 0 0 55px;
+    }
+
+    .strength-icon img {
+        width: 55px;
+        height: 55px;
+    }
+
+    .strength-card h3 {
+        font-size: 17px;
+        margin-bottom: 3px;
+    }
+
+    .strength-card p {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+
+    /* -----------------------------------------------------
+       COMPANY STATS
+    ----------------------------------------------------- */
+
     .about-stats {
-        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+        min-height: auto;
+        grid-template-columns: 1fr 1fr;
+        border-radius: 13px;
+        margin-bottom: 30px;
+    }
+
+    .about-stat {
+        min-height: 100px;
+        padding: 12px 8px;
+    }
+
+    .about-stat strong {
+        font-size: 27px;
+        margin-bottom: 5px;
+    }
+
+    .about-stat span {
+        font-size: 12px;
+        line-height: 1.3;
+        max-width: 120px;
     }
 
     .about-stat:nth-child(2) {
         border-right: 0;
     }
 
-    .about-stat:nth-child(-n+2) {
+    .about-stat:nth-child(1),
+    .about-stat:nth-child(2) {
         border-bottom: 1px solid rgba(255,255,255,.7);
     }
 
-    .leadership-card,
-    .leadership-card-reverse {
-        grid-template-columns: 1fr;
+
+    /* -----------------------------------------------------
+       LEADERSHIP HEADING
+    ----------------------------------------------------- */
+
+    .leadership-heading {
+        margin-top: 45px;
+        margin-bottom: 18px;
     }
 
+
+    /* -----------------------------------------------------
+       LEADERSHIP CARDS
+    ----------------------------------------------------- */
+
+    .leadership-card,
+    .leadership-card-reverse {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 12px;
+    }
+
+    /*
+       Image always appears first
+    */
     .leadership-image {
         order: -1;
-        height: 240px;
+        width: 100%;
+        height: 250px;
+    }
+
+    .leadership-image img {
+        width: 100%;
+        height: 250px;
+        object-fit: contain;
+        border-radius: 9px;
+    }
+
+    .leadership-content {
+        width: 100%;
+        padding: 0 2px 5px;
+    }
+
+    .leadership-content p {
+        font-size: 13.5px;
+        line-height: 1.55;
+        margin-bottom: 10px;
+    }
+
+    .leadership-content h3 {
+        font-size: 20px;
+        margin-top: 8px;
+    }
+
+    .leadership-content > span {
+        font-size: 13px;
+    }
+
+
+    /* -----------------------------------------------------
+       MANAGEMENT TEAM
+    ----------------------------------------------------- */
+
+    .management-heading {
+        margin-top: 45px;
+        margin-bottom: 18px;
+    }
+
+    .management-team {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .management-row {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+    }
+
+    .management-row-bottom {
+        margin-top: 9px;
+    }
+
+    .team-member,
+    .management-row-bottom .team-member,
+    .management-row-bottom .team-member:last-child {
+        width: 100%;
+        height: 175px;
+        border-radius: 9px;
+    }
+
+    .team-member img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .team-member-info {
+        left: 4px;
+        right: 4px;
+        bottom: 4px;
+        min-height: 39px;
+        padding: 4px 3px;
+        border-radius: 6px;
+    }
+
+    .team-member-info strong {
+        font-size: 13px;
+        line-height: 1.15;
+    }
+
+    .team-member-info span {
+        font-size: 11px;
+        line-height: 1.2;
+        margin-top: 2px;
+    }
+
+
+    /* -----------------------------------------------------
+       GUIDING PRINCIPLES
+    ----------------------------------------------------- */
+
+    .principles-heading {
+        margin-top: 48px;
+        margin-bottom: 18px;
     }
 
     .principles-grid {
-        grid-template-columns: 1fr;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-bottom: 25px;
     }
+
+    .principle-card {
+        width: 100%;
+        min-height: auto;
+        border-radius: 17px;
+    }
+
+    .principle-content {
+        padding: 17px 15px;
+    }
+
+    .principle-content h3 {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .principle-content p {
+        font-size: 13.5px;
+        line-height: 1.55;
+        text-align: center;
+    }
+
+    .principle-card img {
+        width: 100%;
+        height: 155px;
+        object-fit: cover;
+    }
+
+
+    /* -----------------------------------------------------
+       COMPLIANCE
+    ----------------------------------------------------- */
+
+    .compliance-section {
+        width: calc(100% + 24px);
+        margin-left: -12px;
+        margin-top: 50px;
+        padding: 25px 12px 30px;
+    }
+
+    .compliance-section .about-section-heading {
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    .stats-certs {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: center;
+        align-items: center;
+        gap: 18px;
+        margin-top: 20px;
+    }
+
+    .stats-cert-img {
+        width: 100%;
+        max-width: 130px;
+        height: 80px;
+        object-fit: contain;
+    }
+
+
+    /* -----------------------------------------------------
+       ASSOCIATIONS + EMPANELMENTS
+    ----------------------------------------------------- */
 
     .association-section {
-        grid-template-columns: 1fr;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-top: 45px;
     }
 
+    .association-box {
+        width: 100%;
+        min-height: auto;
+        padding: 13px 10px;
+        border-radius: 10px;
+    }
+
+    .association-box h2 {
+        font-size: 21px;
+        margin-bottom: 12px;
+    }
+
+    .association-grid {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .association-logo {
+        width: 100%;
+        height: 75px;
+        border-radius: 6px;
+        padding: 5px;
+    }
+
+    .association-logo img {
+        max-width: 95%;
+        max-height: 65px;
+        padding: 5px;
+        object-fit: contain;
+    }
 }
 
 
 /* =========================================================
-   MOBILE
+   SMALL MOBILE — UP TO 420px
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .about-company-section {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Intro */
+
+    .about-intro-card {
+        padding: 10px;
+    }
+
+    .about-intro-content h2 {
+        font-size: 24px !important;
+    }
+
+    .about-intro-content p {
+        font-size: 13px;
+    }
+
+    .about-intro-list li {
+        font-size: 12.5px;
+    }
+
+    .about-main-image {
+        height: 195px;
+    }
+
+
+    /* Technology images */
+
+    .about-tech-image {
+        height: 180px;
+    }
+
+    .tech-image-large {
+        height: 195px;
+        width:260px;
+        margin-left:-90px;
+    }
+
+.tech-image-small{
+ height: 195px;
+        width:260px;
+        margin-top:-80px;
+        margin-right:-90px;
+}
+
+    /* Section headings */
+
+    .about-section-heading h2 {
+        font-size: 23px !important;
+    }
+
+
+    /* Strength cards */
+
+    .strength-card {
+        min-height: 92px;
+        padding: 10px;
+        gap: 11px;
+    }
+
+    .strength-icon,
+    .strength-icon img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .strength-icon {
+        flex-basis: 48px;
+    }
+
+    .strength-card h3 {
+        font-size: 16px;
+    }
+
+    .strength-card p {
+        font-size: 12px;
+    }
+
+
+    /* Stats */
+
+    .about-stat {
+        min-height: 90px;
+    }
+
+    .about-stat strong {
+        font-size: 24px;
+    }
+
+    .about-stat span {
+        font-size: 11px;
+    }
+
+
+    /* Leadership */
+
+    .leadership-image,
+    .leadership-image img {
+        height: 250px;
+        width:100%;
+    }
+
+    .leadership-content p {
+        font-size: 13px;
+    }
+
+    .leadership-content h3 {
+        font-size: 18px;
+    }
+
+
+    /* Management */
+
+    .management-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 7px;
+    }
+
+    .team-member,
+    .management-row-bottom .team-member,
+    .management-row-bottom .team-member:last-child {
+        height: 155px;
+    }
+
+    .team-member-info strong {
+        font-size: 11.5px;
+    }
+
+    .team-member-info span {
+        font-size: 11px;
+    }
+
+
+    /* Principles */
+
+    .principle-content {
+        padding: 15px 12px;
+    }
+
+    .principle-content h3 {
+        font-size: 15px;
+    }
+
+    .principle-content p {
+        font-size: 12.5px;
+    }
+
+    .principle-card img {
+        height: 135px;
+    }
+
+
+    /* Certifications */
+
+    .stats-certs {
+        gap: 10px;
+    }
+
+    .stats-cert-img {
+        max-width: 115px;
+        height: 70px;
+    }
+
+
+    /* Associations */
+
+    .association-box h2 {
+        font-size: 19px;
+    }
+
+    .association-logo {
+        height: 68px;
+    }
+
+    .association-logo img {
+        max-height: 58px;
+    }
+}
+/* =========================================================
+   MOBILE FINAL OVERRIDES
+   Team + Vision/Mission
 ========================================================= */
 
 @media (max-width: 600px) {
 
-    .about-intro-content h2 {
-        font-size: 27px;
+    /* =====================================================
+       VISION + MISSION
+       IMAGE FIRST
+       CONTENT SECOND
+    ===================================================== */
+
+    .principles-grid {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 16px;
     }
 
-    .about-main-image {
-        height: 220px;
+    .principle-card {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        min-height: auto;
+        border-radius: 17px;
+        overflow: hidden;
     }
 
-    .about-tech-image {
-        height: 190px;
+    /* Force image to always appear first */
+    .principle-card img {
+        order: -1;
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        display: block;
     }
 
-    .about-section-heading h2 {
-        font-size: 24px;
+    /* Content below image */
+    .principle-content {
+        order: 2;
+        width: 100%;
+        padding: 18px 15px 20px;
+        text-align: center;
     }
 
-    .about-stats {
-        border-radius: 12px;
+    .principle-content h3 {
+        margin: 0 0 9px;
+        font-size: 17px;
+        font-weight: 600;
+        text-align: center;
     }
 
-    .about-stat {
-        min-height: 85px;
+    .principle-content p {
+        margin: 0;
+        font-size: 13.5px;
+        line-height: 1.55;
+        text-align: center;
     }
-
-    .about-stat strong {
-        font-size: 22px;
-    }
-
-    .management-row {
-        flex-wrap: wrap;
-    }
-
-    .management-row-bottom {
-        margin-top: 10px;
-    }
-
-    .team-member {
-        width: calc(50% - 5px);
-        height: 190px;
-    }
-
-    .management-row-bottom .team-member {
-        width: calc(50% - 5px);
-    }
-
-    .management-row-bottom .team-member:last-child {
-        width: 50%;
-    }
-
-    .certifications {
-        gap: 15px;
-        flex-wrap: wrap;
-    }
-
-    .certificate {
-        width: 65px;
-        height: 65px;
-    }
-
-    .association-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-
 }
 
 
@@ -1594,37 +3629,58 @@ Trusted by over 16+ Municipal Corporations</p>
 
 @media (max-width: 420px) {
 
+    /* Team members remain one per row */
+
     .team-member,
     .management-row-bottom .team-member,
     .management-row-bottom .team-member:last-child {
+        width: 100% !important;
+        height: 240px;
+    }
+
+    /* Vision / Mission */
+
+    .principle-card img {
+        height: 160px;
+    }
+
+    .principle-content {
+        padding: 16px 13px 18px;
+    }
+
+    .principle-content h3 {
+        font-size: 16px;
+    }
+
+    .principle-content p {
+        font-size: 13px;
+    }
+}
+@media (max-width: 600px) {
+
+    /* =====================================================
+       COMPLIANCE & STANDARDS
+       ALL LOGOS IN ONE ROW
+    ===================================================== */
+
+    .stats-certs {
         width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-top: 20px;
     }
 
-    .about-stats {
-        grid-template-columns: 1fr 1fr;
+    .stats-cert-img {
+        width: auto;
+        height: 55px;
+        max-width: 22%;
+        object-fit: contain;
+        flex: 1 1 0;
     }
-
 }
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 900px) {
-
-    .services-page-container {
-        width: calc(100% - 30px);
-    }
-
-    .service-content p {
-        font-size: 8px;
-    }
-
-    .service-content li {
-        font-size: 7.5px;
-    }
-
-}
-
 </style>
 
 @endsection

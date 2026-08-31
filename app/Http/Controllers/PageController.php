@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-
 class PageController extends Controller
 {
     public function about(): View
@@ -528,18 +529,135 @@ class PageController extends Controller
     {
         return view('pages.contact');
     }
+public function contactSubmit(Request $request): RedirectResponse
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'mobile' => 'required|string|max:20',
+        'email' => 'required|email',
+        'position' => 'nullable|string|max:255',
+        'organisation' => 'nullable|string|max:255',
+        'requirements' => 'nullable|string',
+    ]);
 
-    public function contactSubmit(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'mobile' => 'required|string|max:20',
-            'email' => 'required|email',
-            'requirements' => 'nullable|string',
-        ]);
+    $googleSheetUrl = 'https://script.google.com/macros/s/AKfycbzA-qr1ZtduS2rdCCrWVgO6J9tM7A49R1HxUYWelMIS4354VRDxQ8B7XCQRa3rXqFHz/exec';
 
-        return back()->with('success', 'Thank you! We will get back to you shortly.');
+    $data = [
+        'form_type' => 'contact',
+
+        'name' => $request->name,
+        'email' => $request->email,
+        'mobile' => $request->mobile,
+        'position' => $request->position,
+        'organisation' => $request->organisation,
+        'requirements' => $request->requirements,
+    ];
+
+    $ch = curl_init($googleSheetUrl);
+
+    curl_setopt($ch, CURLOPT_POST, true);
+
+    curl_setopt(
+        $ch,
+        CURLOPT_POSTFIELDS,
+        json_encode($data)
+    );
+
+    curl_setopt(
+        $ch,
+        CURLOPT_HTTPHEADER,
+        [
+            'Content-Type: application/json'
+        ]
+    );
+
+    curl_setopt(
+        $ch,
+        CURLOPT_RETURNTRANSFER,
+        true
+    );
+
+    $googleResponse = curl_exec($ch);
+
+    $curlError = curl_error($ch);
+
+    curl_close($ch);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Check Google response
+    |--------------------------------------------------------------------------
+    */
+
+    if ($curlError) {
+
+        return back()
+            ->withInput()
+            ->with('error', 'Something went wrong. Please try again.');
+
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Success
+    |--------------------------------------------------------------------------
+    */
+
+    return back()->with(
+        'success',
+        'Thank you! Your enquiry has been submitted successfully.'
+    );
+}
+   
+public function scheduleSubmit(Request $request): RedirectResponse
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'mobile' => 'required|string|max:20',
+        'email' => 'required|email',
+        'requirements' => 'nullable|string',
+    ]);
+
+    $googleSheetUrl = 'https://script.google.com/macros/s/AKfycbzA-qr1ZtduS2rdCCrWVgO6J9tM7A49R1HxUYWelMIS4354VRDxQ8B7XCQRa3rXqFHz/exec';
+
+    $data = [
+        'form_type' => 'schedule',
+
+        'name' => $request->name,
+        'mobile' => $request->mobile,
+        'email' => $request->email,
+        'requirements' => $request->requirements,
+    ];
+
+    $ch = curl_init($googleSheetUrl);
+
+    curl_setopt($ch, CURLOPT_POST, true);
+
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json'
+    ]);
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $googleResponse = curl_exec($ch);
+
+    $curlError = curl_error($ch);
+
+    curl_close($ch);
+
+    if ($curlError) {
+        return back()
+            ->withInput()
+            ->with('error', 'Something went wrong. Please try again.');
+    }
+
+    return back()->with(
+        'success',
+        'Thank you! Your strategy call request has been submitted successfully.'
+    );
+}
 }
 
 

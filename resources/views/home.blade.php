@@ -2,13 +2,150 @@
 @section('title', 'Home')
 
 @section('content')
+{{-- =========================================================
+     MOBILE STICKY HEADER
+     MOBILE ONLY — DOES NOT AFFECT DESKTOP
+========================================================= --}}
+
+<div
+    class="mobile-site-header"
+    x-data="{ mobileMenuOpen: false }"
+>
+    <div class="mobile-site-header-inner">
+ 
+        <a href="{{ route('home') }}" class="mobile-site-logo">
+            <img src="{{ asset('images/logo.svg') }}" alt="ASCENTech">
+        </a>
+ 
+       <button
+    type="button"
+    class="mobile-menu-toggle"
+    @click="mobileMenuOpen = !mobileMenuOpen"
+    :class="{ 'menu-open': mobileMenuOpen }"
+    :aria-label="mobileMenuOpen ? 'Close Menu' : 'Open Menu'"
+>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+ 
+    </div>
+ 
+    {{-- MOBILE MENU --}}
+    <div
+        class="mobile-menu-panel"
+        x-show="mobileMenuOpen"
+        x-cloak
+        x-data="{ productsOpen: false, insightsOpen: false }"
+    >
+        <div class="mobile-menu-panel-inner">
+ 
+            <a
+                href="{{ route('home') }}"
+                class="mobile-menu-link {{ request()->routeIs('home') ? 'mobile-menu-active' : '' }}"
+            >
+                Home
+            </a>
+ 
+            <a
+                href="{{ route('about') }}"
+                class="mobile-menu-link {{ request()->routeIs('about') ? 'mobile-menu-active' : '' }}"
+            >
+                About Us
+            </a>
+ 
+            <div class="mobile-menu-dropdown">
+                <button
+                    type="button"
+                    class="mobile-menu-link mobile-menu-dropdown-toggle"
+@click="productsOpen = !productsOpen; insightsOpen = false"                >
+                    <span>Products</span>
+                    <svg
+                        class="mobile-menu-chevron"
+                        :class="{ 'mobile-menu-chevron-open': productsOpen }"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="mobile-menu-submenu" x-show="productsOpen" x-collapse x-cloak>
+                    <a href="{{ route('products.nagarkaryavali') }}">Nagarkaryavali</a>
+                    <a href="{{ route('products.banking') }}">Banking Solutions</a>
+                </div>
+            </div>
+ 
+            <a
+                href="{{ route('services') }}"
+                class="mobile-menu-link {{ request()->routeIs('services') ? 'mobile-menu-active' : '' }}"
+            >
+                Services
+            </a>
+ 
+            <div class="mobile-menu-dropdown">
+                <button
+                    type="button"
+                    class="mobile-menu-link mobile-menu-dropdown-toggle"
+@click="insightsOpen = !insightsOpen; productsOpen = false"                >
+                    <span>Insights</span>
+                    <svg
+                        class="mobile-menu-chevron"
+                        :class="{ 'mobile-menu-chevron-open': insightsOpen }"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="mobile-menu-submenu" x-show="insightsOpen" x-collapse x-cloak>
+                    <a href="{{ route('awards') }}">Award and Certification</a>
+                    <a href="{{ route('events') }}">Events</a>
+                    <a href="{{ route('news') }}">News &amp; Media</a>
+                </div>
+            </div>
+ 
+            <a
+                href="{{ route('careers') }}"
+                class="mobile-menu-link {{ request()->routeIs('careers') ? 'mobile-menu-active' : '' }}"
+            >
+                Careers
+            </a>
+ 
+            <a
+                href="{{ route('contact') }}"
+                class="mobile-menu-link {{ request()->routeIs('contact') ? 'mobile-menu-active' : '' }}"
+            >
+                Contact Us
+            </a>
+ 
+        </div>
+    </div>
+</div>
 
 {{-- HERO --}}
-<section class="hero-section" x-data="{ scrolled: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 500 })">
+
+<section
+    class="hero-section"
+    x-data="{ scrolled: false }"
+    x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 500 })"
+>
 
     <div class="hero-bg">
-        @include('partials.header')
 
+        {{-- DESKTOP HEADER ONLY --}}
+        <div class="desktop-hero-header">
+            @include('partials.header')
+        </div>
         <div class="hero-content">
             <div class="hero-text">
                 <h1 class="hero-title">Simplifying Tech Solutions Since 2016</h1>
@@ -50,7 +187,60 @@
     </div>
 
 </section>
+{{-- =========================================================
+     MOBILE BOTTOM NAVIGATION
+     MOBILE ONLY
+========================================================= --}}
+<nav class="mobile-bottom-nav">
 
+    <a href="{{ route('home') }}" class="mobile-bottom-item active">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-house"></i>
+        </span>
+        <span>Home</span>
+    </a>
+
+    <a href="{{ route('about') }}" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-building"></i>
+        </span>
+        <span>About Us</span>
+    </a>
+
+    <a href="{{ route('products.nagarkaryavali') }}" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-display"></i>
+        </span>
+        <span>Products</span>
+    </a>
+
+    <a href="{{ route('services') }}" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-gear"></i>
+        </span>
+        <span>Services</span>
+    </a>
+
+    <a href="tel:+918657953083" class="mobile-bottom-item">
+        <span class="mobile-bottom-icon">
+            <i class="fa-solid fa-phone"></i>
+        </span>
+        <span>Call Us</span>
+    </a>
+
+    <a href="https://wa.me/918657953083"
+       class="mobile-bottom-item"
+       target="_blank"
+       rel="noopener">
+
+        <span class="mobile-bottom-icon">
+            <i class="fa-brands fa-whatsapp"></i>
+        </span>
+
+        <span>WhatsApp</span>
+    </a>
+
+</nav>
 {{-- ABOUT --}}
 <section class="about-section">
     <div class="about-wrap">
@@ -423,6 +613,13 @@
 </section>
 <style>
 /* ===================== GLOBAL HELPERS ===================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
 .text-center { text-align: center; }
 .mb-12 { margin-bottom: 48px; }
 
@@ -529,7 +726,7 @@ margin-bottom:0px;border-radius: 50%; border: 0px solid #1f2937; display: flex; 
 
 .stats-section {
     background: #f9fafb;
-    background-image: url('{{ asset('images/Website-Banner-1200x500-service-page-blue-1.webp') }}');
+    background-image: url('{{ asset('images/Scroll Banner 1200x500.jpg') }}');
     background-size: cover;
     background-position: center center;
     aspect-ratio: 1000 / 150;
@@ -538,6 +735,11 @@ margin-bottom:0px;border-radius: 50%; border: 0px solid #1f2937; display: flex; 
     color: #fff;
     position: relative;
     overflow: hidden;
+}
+@media (max-width: 1023px) {
+    .stats-section {
+        margin: 15px 40px;
+    }
 }
 
 .stats-wrap {
@@ -605,12 +807,21 @@ margin-bottom:0px;border-radius: 50%; border: 0px solid #1f2937; display: flex; 
         display: none;
     }
 
-    /* Vertical dividers between columns */
+    /* Vertical divider between columns */
     .stats-grid .stat-item:nth-child(odd)::after {
         display: block;
         top: 0;
         bottom: 0;
         right: 0;
+    }
+
+    /* Horizontal divider between rows (was missing) */
+    .stats-grid .stat-item:nth-child(-n+2) {
+        border-bottom: 1px solid #fff;
+        padding-bottom: 16px;
+    }
+    .stats-grid .stat-item:nth-child(n+3) {
+        padding-top: 16px;
     }
 
     .stat-value {
@@ -1287,6 +1498,997 @@ padding:10px; border-radius:20px;}
     .hero-float-inner {
         overflow: visible !important;
     }
-}</style>
+}
+
+/* =========================================================
+   MOBILE HEADER + MOBILE NAV
+   DOES NOT CHANGE DESKTOP
+========================================================= */
+
+/* Hidden by default */
+.mobile-site-header,
+.mobile-bottom-nav {
+    display: none;
+}
+
+
+/* =========================================================
+   NAV SWAP — PHONE + TABLET
+   Extended from 767px to 1023px so tablet-width screens
+   (768–1023px) also get a working navigation menu, since
+   the desktop float/sticky nav only appears at ≥1024px.
+========================================================= */
+
+@media (max-width: 1023px) {
+
+    /* -----------------------------------------------------
+       REMOVE DESKTOP HEADER ELEMENTS ON MOBILE/TABLET
+    ----------------------------------------------------- */
+
+    .desktop-hero-header {
+        display: none !important;
+    }
+
+    .hero-float-row {
+        display: none !important;
+    }
+
+    .hero-sticky-bar {
+        display: none !important;
+    }
+
+    /* -----------------------------------------------------
+       MOBILE/TABLET TOP HEADER
+    ----------------------------------------------------- */
+
+    .mobile-site-header {
+        display: block;
+        position: sticky;
+        top: 8px;
+        z-index: 999999;
+        width: calc(100% - 20px);
+        margin: 8px auto 10px;
+    }
+
+    .mobile-site-header-inner {
+        width: 100%;
+        height: 58px;
+        background: #fff;
+        border: 1px solid #e7e7e7;
+        border-radius: 17px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 13px;
+    }
+
+    .mobile-site-logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .mobile-site-logo img {
+        display: block;
+        width: auto;
+        height: 34px;
+        max-width: 145px;
+        object-fit: contain;
+    }
+.mobile-menu-toggle {
+    width: 50px;
+    height: 50px;
+    border: 0;
+    background: transparent;
+
+    display: grid;
+    grid-template-columns: repeat(3, 5px);
+    grid-template-rows: repeat(3, 5px);
+    gap: 4px;
+
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.mobile-menu-toggle span {
+    display: block;
+    width: 5px;
+    height: 5px;
+    background: #2E3192;
+    border-radius: 50%;
+}
+
+/* OPEN — instantly become X */
+.mobile-menu-toggle.menu-open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu-toggle.menu-open span {
+    position: absolute;
+    width: 24px;
+    height: 3px;
+    border-radius: 3px;
+    background: #2E3192;
+}
+
+/* X */
+.mobile-menu-toggle.menu-open span:nth-child(1) {
+    transform: rotate(45deg);
+}
+
+.mobile-menu-toggle.menu-open span:nth-child(2) {
+    transform: rotate(-45deg);
+}
+
+/* Hide remaining dots */
+.mobile-menu-toggle.menu-open span:nth-child(n+3) {
+    display: none;
+}
+   /* -----------------------------------------------------
+   MOBILE DROPDOWN MENU
+----------------------------------------------------- */
+
+.mobile-menu-panel {
+    margin-top: 7px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+}
+
+.mobile-menu-panel-inner {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+}
+
+/* Main menu items */
+.mobile-menu-panel-inner a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 100%;
+    min-height: 46px;
+
+    padding: 11px 14px;
+
+    color: #111827;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    text-align: left;
+}
+
+/* Dropdown buttons - same alignment as links */
+.mobile-menu-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 14px;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    color: #111827;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+}
+
+.mobile-menu-dropdown-toggle > span {
+    flex: 1;
+    text-align: left;
+}
+
+.mobile-menu-chevron {
+    width: 18px;
+    height: 18px;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+/* Submenu alignment */
+.mobile-menu-submenu {
+    padding-left: 10px;
+}
+
+.mobile-menu-submenu a {
+    padding-left: 14px;
+    min-height: 42px;
+    text-align: left;
+}
+
+/* Pressed state */
+.mobile-menu-panel-inner a:active {
+    background: #f3f4f8;
+}
+
+/* Call button - keep centered */
+.mobile-menu-panel-inner .mobile-menu-call {
+    background: #2E3192;
+    color: #fff;
+    text-align: center;
+    justify-content: center;
+    margin-top: 5px;
+}
+}
+/* =====================================================
+   MENU VISUAL STYLING ONLY
+   Does NOT change menu functionality
+===================================================== */
+
+/* Main menu box */
+.mobile-menu-panel {
+    background: #ffffff;
+    border: 1px solid #e6e7ef;
+    border-radius: 18px;
+    box-shadow: 0 10px 28px rgba(30, 32, 80, 0.12);
+}
+
+
+/* Menu spacing */
+.mobile-menu-panel-inner {
+    padding: 10px;
+}
+
+
+/* =====================================================
+   NORMAL MENU ITEMS
+===================================================== */
+
+.mobile-menu-panel-inner a {
+    color: #202235;
+    border-radius: 10px;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+/* Hover */
+.mobile-menu-panel-inner a:hover {
+    background: #f3f4fb;
+    color: #2E3192;
+}
+
+
+/* Click / active */
+.mobile-menu-panel-inner a:active {
+    background: #e9ebfa;
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   DROPDOWN BUTTON
+===================================================== */
+
+.mobile-menu-dropdown-toggle {
+    color: #202235;
+    border-radius: 10px;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+/* Hover */
+.mobile-menu-dropdown-toggle:hover {
+    background: #f3f4fb;
+    color: #2E3192;
+}
+
+
+/* Open dropdown */
+.mobile-menu-dropdown-toggle.dropdown-open {
+    background: #eef0ff;
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   ARROW
+===================================================== */
+
+.mobile-menu-chevron {
+    color: #55586b;
+}
+
+.mobile-menu-dropdown-toggle:hover .mobile-menu-chevron {
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   SUBMENU
+===================================================== */
+
+.mobile-menu-submenu {
+    border-left: 2px solid #e8eaff;
+}
+
+
+/* Submenu links */
+.mobile-menu-submenu a {
+    color: #55586b;
+    border-radius: 8px;
+}
+
+
+/* Submenu hover */
+.mobile-menu-submenu a:hover {
+    background: #f5f6fb;
+    color: #2E3192;
+}
+
+
+/* =====================================================
+   CALL BUTTON
+===================================================== */
+
+.mobile-menu-panel-inner .mobile-menu-call {
+    background: #2E3192;
+    color: #ffffff;
+
+    border-radius: 10px;
+
+    box-shadow: 0 5px 14px rgba(46, 49, 146, 0.18);
+
+    transition:
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* Call button hover */
+.mobile-menu-panel-inner .mobile-menu-call:hover {
+    background: #25277d;
+    color: #ffffff;
+
+    box-shadow: 0 7px 18px rgba(46, 49, 146, 0.25);
+}
+
+
+/* =====================================================
+   MENU ICON HOVER
+===================================================== */
+
+.mobile-menu-toggle:hover {
+    background: #f3f4fb;
+    border-radius: 12px;
+}
+
+
+/* Keep icon change instant */
+.mobile-menu-toggle,
+.mobile-menu-toggle span,
+.mobile-menu-toggle.menu-open,
+.mobile-menu-toggle.menu-open span {
+    transition: none !important;
+}
+
+/* =========================================================
+   MOBILE ONLY (≤767px) — everything else
+========================================================= */
+
+@media (max-width: 767px) {
+
+    /* =====================================================
+       MOBILE HERO
+    ===================================================== */
+
+    .hero-section {
+        width: 100%;
+        position: relative;
+    }
+
+    .hero-bg {
+        width: calc(100% - 20px);
+    background-image: url('{{ asset('images/Scroll Banner 1200x500.jpg') }}');
+
+        min-height: 0;
+
+        aspect-ratio: auto;
+
+        margin: 0 auto;
+
+        border-radius: 18px;
+
+        background-position: center center;
+
+        overflow: hidden;
+    }
+
+    .hero-content {
+        width: 100%;
+        max-width: none;
+
+        display: flex;
+        flex-direction: column;
+
+        gap: 10px;
+
+        padding: 28px 15px 32px;
+
+        text-align: center;
+    }
+
+    .hero-text {
+        width: 100%;
+
+        padding: 0;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-title {
+        width: 100%;
+        max-width: 340px;
+
+        margin: 0 auto 12px;
+
+        font-size: 28px !important;
+        line-height: 1.08;
+
+        font-weight: 600;
+
+        text-align: center;
+    }
+
+    .hero-subtitle {
+        width: 100%;
+        max-width: 330px;
+
+        margin: 0 auto 12px;
+
+        color: #e5e7eb;
+
+        font-size: 13px;
+        line-height: 1.45;
+
+        text-align: center;
+    }
+
+    .hero-trust {
+        width: 100%;
+        max-width: 320px;
+
+        margin: 0 auto;
+
+        color: #e5e7eb;
+
+        font-size: 12px;
+        line-height: 1.4;
+
+        text-align: center;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE HERO GRAPHIC
+    ----------------------------------------------------- */
+
+    .hero-graphic {
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin: 5px auto 0;
+    }
+
+    .hero-graphic-img {
+        display: block;
+
+        width: 88%;
+        max-width: 310px;
+
+        margin: 0 auto;
+
+        object-fit: contain;
+    }
+
+
+    /* =====================================================
+       MOBILE BOTTOM NAV
+    ===================================================== */
+
+    .mobile-bottom-nav {
+        display: flex;
+
+        position: fixed;
+
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+
+        height: 58px;
+
+        z-index: 999999;
+
+        background: rgba(255, 255, 255, 0.96);
+
+        border-radius: 18px;
+
+        box-shadow:
+            0 4px 20px rgba(0, 0, 0, 0.15);
+
+        border: 1px solid #e5e7eb;
+
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+
+        align-items: stretch;
+        justify-content: space-around;
+
+        padding: 4px 3px;
+    }
+
+    .mobile-bottom-item {
+        flex: 1;
+
+        min-width: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 2px;
+
+        color: #1f2937;
+
+        text-decoration: none;
+
+        font-size: 9px;
+        font-weight: 500;
+
+        line-height: 1;
+
+        border-radius: 13px;
+
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .mobile-bottom-item.active {
+        color: #2E3192;
+        font-weight: 600;
+    }
+
+    .mobile-bottom-icon {
+        width: 23px;
+        height: 23px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-bottom-icon svg {
+        width: 21px;
+        height: 21px;
+        display: block;
+    }
+
+
+    /* -----------------------------------------------------
+       PREVENT CONTENT FROM HIDING BEHIND BOTTOM NAV
+    ----------------------------------------------------- */
+
+    body {
+        padding-bottom: 76px;
+    }
+
+
+    /* =====================================================
+       MOBILE ABOUT
+       ONLY RESPONSIVE — DESKTOP UNCHANGED
+    ===================================================== */
+
+    .about-section {
+        padding: 55px 15px 65px;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 42px;
+    }
+
+    .about-images {
+        width: 100%;
+        max-width: 360px;
+        height: 350px;
+    }
+
+    .about-img-top {
+        width: 75%;
+    }
+
+    .about-img-bottom {
+        top: 125px;
+        width: 80%;
+    }
+
+    .about-img {
+        height: 190px;
+        border-radius: 14px;
+    }
+
+    .about-img-bottom .about-img {
+        height: 215px;
+    }
+
+    .about-eyebrow {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .about-title {
+        font-size: 30px !important;
+        line-height: 1.15;
+        margin-bottom: 20px;
+    }
+
+    .about-desc {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .about-feature {
+        align-items: flex-start;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .about-check {
+        margin-top: 3px;
+    }
+
+    .about-cards {
+        grid-template-columns: 1fr;
+        gap: 10px !important;
+    }
+
+    .about-card {
+        min-height: 90px;
+        padding: 12px;
+    }
+
+    .about-card-icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .about-card-icon svg {
+        width: 31px;
+        height: 31px;
+    }
+
+    .about-card-title {
+        font-size: 17px;
+    }
+
+    .about-card-desc {
+        font-size: 13px;
+    }
+
+
+    /* =====================================================
+       MOBILE STATS
+    ===================================================== */
+
+    .stats-section {
+        margin: 15px 15px;
+        border-radius: 20px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 20px 8px;
+        min-height: 210px;
+    }
+
+    .stat-value {
+        font-size: 34px;
+    }
+
+    .stat-label {
+        font-size: 10px;
+        line-height: 1.3;
+    }
+
+    .stats-certs {
+        margin-top: 35px;
+        gap: 25px;
+        padding: 0 15px;
+    }
+
+    .stats-cert-img {
+        height: 65px;
+        max-width: 120px;
+    }
+
+
+    /* =====================================================
+       SHARED SECTION HEADERS
+    ===================================================== */
+
+    .section-header {
+        margin-bottom: 30px;
+    }
+
+    .section-eyebrow {
+        font-size: 13px;
+    }
+
+    .section-title {
+        font-size: 28px !important;
+        line-height: 1.15;
+    }
+
+    .section-subtitle {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+
+    /* =====================================================
+       MOBILE PRODUCTS
+    ===================================================== */
+
+    .products-section {
+        padding: 55px 15px;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 7px;
+        border-radius: 16px;
+    }
+
+    .product-card,
+    .product-card {
+        height: 360px !important;
+        border-radius: 15px;
+    }
+
+    .product-content {
+        padding: 20px;
+    }
+
+    .product-title {
+        font-size: 20px;
+    }
+
+    .product-tag {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+
+    .product-arrow {
+        width: 43px;
+        height: 43px;
+        right: 17px;
+        bottom: 17px;
+        font-size: 23px;
+    }
+
+
+    /* =====================================================
+       MOBILE EXPERTISE
+    ===================================================== */
+
+    .expertise-section {
+        padding: 30px 15px;
+    }
+
+    .expertise-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .expertise-image {
+        height: 230px;
+    }
+
+    .expertise-description {
+        padding: 20px;
+    }
+
+    .expertise-description p {
+        font-size: 14px;
+    }
+
+
+    /* =====================================================
+       MOBILE SECTORS
+    ===================================================== */
+
+    .sectors-section {
+        padding: 55px 15px;
+    }
+
+    .sectors-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .sector-card img {
+        height: 200px;
+    }
+
+    .sector-overlay {
+        padding: 11px;
+    }
+
+    .sector-overlay h3 {
+        font-size: 12px;
+        line-height: 1.2;
+    }
+
+
+    /* =====================================================
+       MOBILE TESTIMONIALS
+    ===================================================== */
+
+    .testimonials-section {
+        padding: 35px 15px 40px;
+    }
+
+    .testimonials-heading {
+        margin-bottom: 20px;
+    }
+
+    .testimonials-heading h2 {
+        font-size: 27px !important;
+    }
+
+    .testimonials-heading p {
+        font-size: 12px;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .testimonial-card {
+        min-height: 150px;
+        padding: 15px;
+    }
+
+    .testimonial-name {
+        font-size: 16px;
+    }
+
+    .testimonial-role {
+        font-size: 12px;
+    }
+
+    .testimonial-text {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+
+    /* =====================================================
+       MOBILE CLIENTS
+    ===================================================== */
+
+    .clients-section {
+        margin: 35px 0;
+        padding: 18px 0 25px;
+    }
+
+    .clients-heading {
+        padding: 0 15px;
+        margin-bottom: 20px;
+    }
+
+    .clients-heading h2 {
+        font-size: 27px !important;
+    }
+
+    .clients-heading p {
+        font-size: 12px;
+    }
+
+    .clients-track {
+        gap: 1px;
+    }
+
+    .client-logo-wrap {
+        height: 150px;
+    }
+
+    .client-logo {
+        height: 150px;
+    }
+
+
+    /* =====================================================
+       MOBILE FAQ
+    ===================================================== */
+
+    .faq-section {
+        padding: 35px 15px 45px;
+    }
+
+    .faq-heading {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .faq-columns {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .faq-question {
+        min-height: 50px;
+        padding: 12px;
+    }
+
+    .faq-question-text {
+        font-size: 14px;
+    }
+
+    .faq-answer {
+        padding: 0 12px 12px;
+    }
+
+    .faq-answer p {
+        font-size: 13px;
+    }
+
+    .faq-side {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .faq-cta-card {
+        min-height: 170px;
+        padding: 18px 14px;
+    }
+
+    .faq-cta-title {
+        font-size: 17px;
+    }
+
+    .faq-cta-desc {
+        font-size: 13px;
+    }
+
+    .faq-contact-card {
+        min-height: 70px;
+    }
+
+}
+</style>
 
 @endsection

@@ -742,9 +742,9 @@
 
 .ascentech-nav-button {
 
-    width: 52px;
+    width: 32px;
 
-    height: 52px;
+    height: 32px;
 
     padding: 0;
 
@@ -762,7 +762,7 @@
 
     color: #0055b8;
 
-    font-size: 20px;
+    font-size: 14px;
 
     text-decoration: none;
 
@@ -853,6 +853,10 @@
 
 @media (max-width: 767px) {
 
+.ascentech-sticky-navigation{
+    margin-bottom:55px;
+    margin-right:10px;
+}
     .ascentech-footer {
 
         padding: 40px 0 25px;
@@ -952,11 +956,12 @@
 
     .ascentech-nav-button {
 
-        width: 44px;
+        width: 30px;
 
-        height: 44px;
+        height: 30px;
 
-        font-size: 17px;
+        font-size: 12px;
+    
 
     }
 
