@@ -20,7 +20,7 @@
         defer
         src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js">
     </script>
-<link rel="stylesheet" href="{{ asset('css/mobile-nav.css') }}">
+    
 </head>
 
 <body class="text-gray-800 antialiased">

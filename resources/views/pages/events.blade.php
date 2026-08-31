@@ -1406,6 +1406,14 @@
     box-shadow: 0 7px 18px rgba(46, 49, 146, 0.25);
 }
 
+/* =====================================================
+   EVENTS PAGE — HIDE TAB SCROLL ARROWS ONLY
+===================================================== */
+
+.year-tabs-wrap .tabs-scroll-arrow,
+.festival-tabs-wrap .tabs-scroll-arrow {
+    display: none !important;
+}
 
 /* =====================================================
    MENU ICON HOVER
@@ -1855,15 +1863,25 @@
        They do NOT take extra layout space.
     ===================================================== */
 
+    /* =====================================================
+   TAB SCROLL ARROWS
+   MOBILE ONLY
+===================================================== */
+
+/* Hidden everywhere by default */
+.tabs-scroll-arrow {
+    display: none;
+}
+
+/* Show ONLY on phones */
+@media (max-width: 767px) {
+
     .tabs-scroll-arrow {
         position: absolute;
-
         right: 0;
         top: 3px;
-
         width: 30px;
         height: 38px;
-
         padding: 0;
 
         display: flex;
@@ -1872,7 +1890,6 @@
 
         border: 1px solid #dedee5;
         border-radius: 10px;
-
         background: rgba(255, 255, 255, 0.96);
         color: #2e3192;
 
@@ -1881,7 +1898,6 @@
         line-height: 1;
 
         cursor: pointer;
-
         z-index: 100;
 
         box-shadow: -6px 0 12px rgba(255, 255, 255, .95);
@@ -1896,6 +1912,7 @@
     .tabs-scroll-arrow:active {
         transform: scale(.94);
     }
+}
 
 
     /* =====================================================
@@ -2086,6 +2103,7 @@
         right: 12px;
     }
 }
+
 </style>
 <script>
 
