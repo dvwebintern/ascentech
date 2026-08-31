@@ -41,9 +41,10 @@ RUN composer install --no-dev --optimize-autoloader
 RUN npm install && npm run build
 
 # Prepare Laravel
-RUN php artisan config:clear \
-    && chmod -R 775 storage bootstrap/cache \
-    && touch database/database.sqlite
+RUN touch database/database.sqlite \
+    && php artisan migrate --force \
+    && php artisan config:clear \
+    && chmod -R 775 storage bootstrap/cache
 
 # Render uses port 10000
 EXPOSE 10000
