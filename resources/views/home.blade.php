@@ -877,7 +877,7 @@ padding:10px; border-radius:20px;}
 }
 .mybadge {
     position: absolute;
-    bottom: 95px;
+    bottom: 115px;
     left: -1px;
     width: fit-content;
     background: linear-gradient(135deg, #4f7be8, #072361);

@@ -1,11 +1,9 @@
-@import '@fortawesome/fontawesome-free/css/all.min.css';
-@import 'tailwindcss';
+@import "tailwindcss";
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
+@import "@fortawesome/fontawesome-free/css/all.min.css";
 
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+@source "../../storage/framework/views/*.php";
 
 @theme {
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
@@ -18,7 +16,6 @@
 
     --container-site: 1200px;
 }
-
 .container-site {
     max-width: 1200px;
     margin-left: auto;
@@ -155,10 +152,9 @@
 
 .mobile-bottom-icon i {
     line-height: 1;
-}
-/* =========================================================
+}/* =========================================================
    ASCENTECH — GLOBAL FONT
-   ========================================================= */
+========================================================= */
 
 :root {
     --site-font: 'Inter', sans-serif;
@@ -166,15 +162,7 @@
 
 html,
 body {
-    font-family: var(--site-font) !important;
-}
-
-/* Everything inside the website inherits Inter */
-body,
-body *,
-body *::before,
-body *::after {
-    font-family: var(--site-font) !important;
+    font-family: var(--site-font);
 }
 
 /* Form controls */
@@ -183,63 +171,31 @@ textarea,
 select,
 button,
 option {
-    font-family: var(--site-font) !important;
-}
-/* =====================================================
-   GLOBAL RESET + MOBILE OVERFLOW FIX
-===================================================== */
-
-html {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-    overflow-x: clip;
+    font-family: var(--site-font);
 }
 
-body {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    overflow-x: hidden;
-    overflow-x: clip;
+/* =========================================================
+   FONT AWESOME — DO NOT OVERRIDE
+========================================================= */
+
+.fa,
+.fas,
+.far,
+.fal,
+.fad,
+.fab,
+.fa-solid,
+.fa-regular,
+.fa-light,
+.fa-thin,
+.fa-duotone,
+.fa-brands {
+    font-family: "Font Awesome 7 Free" !important;
 }
 
-/* Prevent padding/borders from increasing element width */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
-/* Prevent media from creating horizontal overflow */
-img,
-svg,
-video,
-iframe,
-canvas {
-    max-width: 100%;
-}
-
-/* Prevent long text/URLs from pushing containers */
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-a,
-span {
-    overflow-wrap: break-word;
-}
-
-/* Sections should never exceed viewport */
-section,
-header,
-footer,
-main,
-nav {
-    max-width: 100%;
+.fa-brands,
+.fab {
+    font-family: "Font Awesome 7 Brands" !important;
 }
 /* =====================================================
    MOBILE WIDTH CONTROL
