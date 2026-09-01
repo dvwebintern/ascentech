@@ -51,7 +51,6 @@ RUN mkdir -p storage/framework/cache \
 # Create SQLite database if it doesn't exist
 RUN mkdir -p database \
     && touch database/database.sqlite
-
 EXPOSE 10000
 
 CMD php artisan config:cache && \
