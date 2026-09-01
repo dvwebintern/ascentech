@@ -8,7 +8,7 @@ Route::get('/test-render', function () {
 
 // your existing routes below...
 
-<?php
+
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
